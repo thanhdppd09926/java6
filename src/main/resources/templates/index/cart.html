@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/layouts/header}"></head>
+
+<body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <main>
+        <div class="container mt-5">
+            <h2 class="text-center">Giỏ hàng của bạn</h2>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><input type="checkbox" id="select-all"></th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Tổng</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><input type="checkbox" class="product-checkbox"></td>
+                                <td><img src="https://via.placeholder.com/100" class="product-image" alt="Sản phẩm">
+                                </td>
+                                <td>Áo Thun ESSENTIAL</td>
+                                <td>499.000đ</td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary">-</button>
+                                    <span>1</span>
+                                    <button class="btn btn-sm btn-secondary">+</button>
+                                </td>
+                                <td>499.000đ</td>
+                                <td><button class="btn btn-danger btn-sm">Xóa</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="product-checkbox"></td>
+                                <td><img src="https://via.placeholder.com/100" class="product-image" alt="Sản phẩm">
+                                </td>
+                                <td>Quần Jean Basic</td>
+                                <td>699.000đ</td>
+                                <td>
+                                    <button class="btn btn-sm btn-secondary">-</button>
+                                    <span>1</span>
+                                    <button class="btn btn-sm btn-secondary">+</button>
+                                </td>
+                                <td>699.000đ</td>
+                                <td><button class="btn btn-danger btn-sm">Xóa</button></td>
+                            </tr>
+                            <!-- Thêm nhiều sản phẩm khác ở đây -->
+                        </tbody>
+                    </table>
+
+                    <div class="total-summary">
+                        <h5>Tổng tiền: 1.198.000đ</h5>
+                        <h5>Phí giao hàng: 30.000đ</h5>
+                        <h5>Tổng cộng: 1.228.000đ</h5>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary">Tiếp tục mua sắm</button>
+                        <button class="btn btn-success">Thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Chọn tất cả hoặc bỏ chọn tất cả sản phẩm
+        document.getElementById('select-all').addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+
+    <div th:replace="~{/layouts/footer}"></div>
+
+</body>
+
+</html>

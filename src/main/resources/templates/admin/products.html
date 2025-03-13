@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/layouts/header}"></head>
+
+<body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <main>
+        <div class="container">
+            <h1>Quản lý Sản phẩm</h1>
+
+            <!-- Nút thêm sản phẩm -->
+            <div class="mb-3">
+                <a th:href="@{/admin/products/new}" class="btn btn-danger btn-sm"></a>Thêm sản phẩm</a>
+            </div>
+
+            <!-- Bảng danh sách sản phẩm -->
+            <h2>Danh sách Sản phẩm</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Hình ảnh</th>
+                        <th>Giá</th>
+                        <th>Ngày tạo</th>
+                        <th>Có sẵn</th>
+                        <th>Danh mục</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td>
+                            <img th:src="@{|/images/${product.image}|}" width="50" alt="Product Image"
+                                th:unless="${product.image == null}" />
+                            <span th:if="${product.image == null}">Không có hình</span>
+                        </td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.createDate}"></td>
+                        <td th:text="${product.available ? 'Có' : 'Không'}"></td>
+                        <td th:text="${product.category.name}"></td>
+                        <td>
+                            <a th:href="@{/admin/products/{id}(id=${product.id})}"
+                                class="btn btn-warning btn-sm">Sửa</a>
+                            <form th:action="@{/admin/products/{id}/delete(id=${product.id})}" method="post"
+                                style="display:inline;"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${products.isEmpty()}">
+                        <td colspan="8" style="text-align: center;">Không có sản phẩm nào.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div th:replace="~{/layouts/footer}"></div>
+
+    <style>
+        body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+            }
+    
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+    
+        .activated {
+            color: green;
+            font-weight: bold;
+        }
+    
+        .deactivated {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</body>
+
+</html>

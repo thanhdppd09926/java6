@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Login Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background: url('https://img.thuthuatphanmem.vn/uploads/2018/09/27/anh-nen-may-tinh-4k-dep_105908865.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-50">
+    <div class="text-center text-white">
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        <div class="bg-white bg-opacity-75 p-8 rounded-lg shadow-lg inline-block">
+            <h2 class="text-gray-800 text-xl font-semibold mb-6">Quên Mật Khẩu</h2>
+            <form th:action="@{/nopass}" method="post">
+
+                <div class="mb-4 relative">
+                    <input type="email"  placeholder="Nhập email của bạn"  name="email" class="w-full p-3 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 text-black">
+                    <i class="fas fa-user absolute left-3 top-3 text-gray-400"></i>
+                </div>
+ 
+                <button type="submit" class="w-full bg-pink-500 text-white p-3 rounded-full font-semibold hover:bg-pink-600">Xác Nhận</button>
+                <h2 class="text-black">Bạn hãy:<a href="/login">Đăng Nhập</a></h2>
+            </form>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/layouts/header}">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <main>
+        <h1>Danh sách tài khoản</h1>
+        <div class="container">
+            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#addAccountModal"> Thêm tài khoản
+            </button>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Tên đăng nhập</th>
+                        <th scope="col">Họ tên</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Quyền quản trị</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="account : ${accounts}">
+                        <td th:text="${account.username}"></td>
+                        <td th:text="${account.fullname}"></td>
+                        <td th:text="${account.email}"></td>
+                        <td th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"
+                            th:class="${account.activated} ? 'activated' : 'deactivated'"></td>
+                        <td th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editAccountModal"
+                                th:data-username="${account.username}" th:data-fullname="${account.fullname}"
+                                th:data-email="${account.email}" th:data-activated="${account.activated}"
+                                th:data-admin="${account.admin}">Sửa</button>
+                            <form method="post" th:action="@{/accounts/delete}" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                <input type="hidden" name="username" th:value="${account.username}" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Thêm Tài Khoản -->
+        <div class="modal fade" id="addAccountModal" tabindex="-1" role="dialog" aria-labelledby="addAccountModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" th:action="@{/accounts}">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addAccountModalLabel">Thêm Tài Khoản</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên đăng nhập</label>
+                                <input type="text" name="username" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" name="password" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" name="fullname" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                <select name="activated" class="form-control">
+                                    <option value="true">Đã kích hoạt</option>
+                                    <option value="false">Chưa kích hoạt</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quyền quản trị</label>
+                                <select name="admin" class="form-control">
+                                    <option value="true">Quản trị viên</option>
+                                    <option value="false">Người dùng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Sửa Tài Khoản -->
+        <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog"
+            aria-labelledby="editAccountModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" th:action="@{/accounts/update}">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editAccountModalLabel">Sửa Tài Khoản</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Tên đăng nhập</label>
+                                <input type="text" name="username" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" name="password" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" name="fullname" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Trạng thái</label>
+                                <select name="activated" class="form-control">
+                                    <option value="true">Đã kích hoạt</option>
+                                    <option value="false">Chưa kích hoạt</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Quyền quản trị</label>
+                                <select name="admin" class="form-control">
+                                    <option value="true">Quản trị viên</option>
+                                    <option value="false">Người dùng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{/layouts/footer}"></div>
+
+    <!-- Script để điền dữ liệu vào modal sửa -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('#editAccountModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var username = button.data('username');
+            var fullname = button.data('fullname');
+            var email = button.data('email');
+            var activated = button.data('activated');
+            var admin = button.data('admin');
+
+            var modal = $(this);
+            modal.find('.modal-body input[name="username"]').val(username);
+            modal.find('.modal-body input[name="fullname"]').val(fullname);
+            modal.find('.modal-body input[name="email"]').val(email);
+            modal.find('.modal-body select[name="activated"]').val(activated.toString());
+            modal.find('.modal-body select[name="admin"]').val(admin.toString());
+        });
+    </script>
+</body>
+
+</html>
+
+<style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .activated {
+        color: green;
+        font-weight: bold;
+    }
+
+    .deactivated {
+        color: red;
+        font-weight: bold;
+    }
+</style>

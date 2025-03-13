@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{/layouts/header}"></head>
+
+<body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <main>
+        <div class="container mx-auto p-4">
+ 
+            <!-- Product Section -->
+            <div class="flex flex-col lg:flex-row bg-white p-4 rounded shadow">
+             <!-- Product Image -->
+             <div class="w-full lg:w-1/2">
+                 <img th:src="@{|/images/${product.image}|}" class="img-fluid" alt="Sản phẩm">
+             </div>
+             <!-- Product Details -->
+             <div class="w-full lg:w-1/2 lg:pl-8">
+              <h1 class="text-2xl font-bold mb-2" th:text = "${product.name}"></h1>
+              <div class="flex items-center mb-4">
+               <span class="text-yellow-500 text-xl">
+                <i class="fas fa-star">
+                </i>
+               </span>
+               <span class="text-yellow-500 text-xl">
+                <i class="fas fa-star">
+                </i>
+               </span>
+               <span class="text-yellow-500 text-xl">
+                <i class="fas fa-star">
+                </i>
+               </span>
+               <span class="text-yellow-500 text-xl">
+                <i class="fas fa-star">
+                </i>
+               </span>
+               <span class="text-yellow-500 text-xl">
+                <i class="fas fa-star-half-alt">
+                </i>
+               </span>
+               <span class="text-gray-600 ml-2">
+                4.6
+               </span>
+               <span class="text-gray-600 ml-2">
+                10,5k Đánh Giá
+               </span>
+              </div>
+              <div class="bg-red-500 text-white text-sm font-bold px-2 py-1 inline-block mb-2">
+               FLASH SALE
+              </div>
+              <div class="text-3xl text-red-500 font-bold mb-2">
+               <h2 th:text = "${product.price}"></h2>
+              </div>
+          
+         
+              <div class="flex items-center mb-4">
+               <i class="fas fa-truck text-gray-600 mr-2">
+               </i>
+          
+               <a class="text-blue-500 ml-2" href="#">
+                Tặng Voucher ₫15.000 nếu đơn giao sau thời gian trên.
+               </a>
+              </div>
+              <div class="flex items-center mb-4">
+               <i class="fas fa-shield-alt text-gray-600 mr-2">
+               </i>
+               <span class="text-gray-600">
+                Trả hàng miễn phí 15 ngày
+               </span>
+              </div>
+              <div class="flex items-center mb-4">
+               <span class="text-gray-600 mr-2">
+                Số Lượng
+               </span>
+               <div class="flex items-center border rounded">
+                <button class="px-2 py-1">
+                 -
+                </button>
+                <input class="w-12 text-center border-l border-r" type="text" value="1"/>
+                <button class="px-2 py-1">
+                 +
+                </button>
+               </div>
+              </div>
+              <div class="flex space-x-4">
+               <button class="bg-orange-500 text-white px-4 py-2 rounded">
+                Thêm Vào Giỏ Hàng
+               </button>
+               <button class="bg-red-500 text-white px-4 py-2 rounded">
+                Mua Ngay
+               </button>
+              </div>
+             </div>
+            </div>
+            <!-- Social Share -->
+            <div class="flex items-center mt-4">
+             <span class="text-gray-600 mr-2">
+              Chia sẻ:
+             </span>
+             <a class="text-blue-500 mr-2" href="#">
+              <i class="fab fa-facebook">
+              </i>
+             </a>
+             <a class="text-blue-400 mr-2" href="#">
+              <i class="fab fa-twitter">
+              </i>
+             </a>
+             <a class="text-red-500 mr-2" href="#">
+              <i class="fab fa-pinterest">
+              </i>
+             </a>
+             <a class="text-blue-300 mr-2" href="#">
+              <i class="fab fa-linkedin">
+              </i>
+             </a>
+             <span class="text-gray-600 ml-4">
+              Đã thích (1,8k)
+             </span>
+            </div>
+           </div>
+    </main>
+    <div th:replace="~{/layouts/footer}"></div>
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/layouts/header}"></head>
+
+<body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <hr>
+    <div th:replace="~{/layouts/slide}"></div>
+    <hr>
+    <main>
+        <div th:if = ${keyword} != null>
+            <div class="product-grid">
+                <div class="product-card" th:each="product : ${productssearch}">
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="product-link">
+                        <img th:src="@{|/images/${product.image}|}" alt="Sản phẩm">
+                        <div class="product-info">
+                            <h3 th:text="${product.name}"></h3>
+                            <p th:text="${product.price} + ' VNĐ'"></p>
+                        </div>
+                    </a>
+                    <div class="product-actions">
+                        <button class="btn btn-buy">Mua ngay</button>
+                        <a href="cart">
+                            <button class="btn btn-cart" th:data-id="${product.id}" onclick="showDeleteAlert(event)">
+                                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png" alt="Cart Icon" />
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div th:if = "${keyword == null}"> 
+        <div class="FlashSale">
+                
+            <div class="product-container">
+                <div class="product-card" th:each="product : ${productsHome}">
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="product-link">
+                        <img th:src="@{|/images/${product.image}|}" alt="Sản phẩm">
+                        <div class="product-info">
+                            <h3 th:text="${product.name}"></h3>
+                            <p th:text="${product.price} + ' VNĐ'"></p>
+                        </div>
+                    </a>
+                    <div class="product-actions">
+                        <button class="btn btn-buy">Mua ngay</button>
+                        <a href="cart">
+                            <button class="btn btn-cart" th:data-id="${product.id}" onclick="showDeleteAlert(event)">
+                                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png" alt="Cart Icon" />
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="section-title mt-5">Sản phẩm nổi bật</h1>
+        <div class="product-grid">
+            <div class="product-card" th:each="product : ${productsHome}">
+                <a th:href="@{/product/{id}(id=${product.id})}" class="product-link">
+                    <img th:src="@{|/images/${product.image}|}" alt="Sản phẩm">
+                    <div class="product-info">
+                        <h3 th:text="${product.name}"></h3>
+                        <p th:text="${product.price} + ' VNĐ'"></p>
+                    </div>
+                </a>
+                <div class="product-actions">
+                    <button class="btn btn-buy">Mua ngay</button>
+                    <a href="cart">
+                        <button class="btn btn-cart" th:data-id="${product.id}" onclick="showDeleteAlert(event)">
+                            <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png" alt="Cart Icon" />
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+    <div th:replace="~{/layouts/footer}"></div>
+</body>
+
+<style>
+    body {
+        background-color: #f5f7fa;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+    }
+
+    main {
+        width: 90%;
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        color: #1a1a1a;
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Product Card */
+    .product-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-link {
+        text-decoration: none;
+        color: #333;
+        flex-grow: 1;
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-bottom: 1px solid #eee;
+    }
+
+    .product-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .product-info h3 {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0 0 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .product-info p {
+        font-size: 18px;
+        color: #e74c3c;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .product-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background: #fafafa;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-buy {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .btn-buy:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-cart {
+        background-color: #2ecc71;
+        padding: 8px;
+    }
+
+    .btn-cart img {
+        width: 20px;
+        height: 20px;
+        filter: brightness(0) invert(1);
+    }
+
+    .btn-cart:hover {
+        background-color: #27ae60;
+    }
+
+    /* Flash Sale Section */
+    .product-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding: 20px 0;
+        justify-content: center;
+        scroll-behavior: smooth;
+    }
+
+    .product-container .product-card {
+        flex: 0 0 260px;
+    }
+
+    /* Products Grid */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+        justify-items: center;
+    }
+
+    @media (max-width: 767px) {
+        .product-card {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .product-container {
+            justify-content: flex-start;
+        }
+    }
+</style>
+
+<script>
+    function showDeleteAlert(event) {
+        event.preventDefault();
+        alert('Sản phẩm đã được thêm vào giỏ hàng!');
+        document.getElementById('deleteForm').submit();
+    }
+</script>
+
+</html>

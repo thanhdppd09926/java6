@@ -1,0 +1,121 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="../images/top-hinh-nen-de-thuong-cho-iphone-va-android-xtmobile.webp" class="d-block" alt="Slide 1">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/hinh-nen-desktop-game-phong-vu-5.png" class="d-block" alt="Slide 2">
+        </div>
+        <div class="carousel-item">
+            <img src="../images/tai-hinh-nen-may-tinh-co-ke-de-icon.jpg" class="d-block" alt="Slide 3">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="thumbnail-container d-flex justify-content-center mt-3">
+    <img src="../images/top-hinh-nen-de-thuong-cho-iphone-va-android-xtmobile.webp" class="thumbnail" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+        alt="Slide 1">
+    <img src="../images/hinh-nen-desktop-game-phong-vu-5.png" class="thumbnail" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+        alt="Slide 2">
+    <img src="../images/tai-hinh-nen-may-tinh-co-ke-de-icon.jpg" class="thumbnail" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+        alt="Slide 3">
+</div>
+
+<style>
+    /* Chỉ áp dụng cho carousel */
+    #carouselExampleIndicators.carousel {
+        padding: 20px 0;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    #carouselExampleIndicators .carousel-inner {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    #carouselExampleIndicators .carousel-item img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover; /* Đảm bảo ảnh vừa khung mà không bị méo */
+        object-position: center; /* Canh giữa ảnh */
+        image-rendering: -webkit-optimize-contrast; /* Tăng độ sắc nét cho ảnh */
+        image-rendering: crisp-edges; /* Tối ưu độ rõ nét */
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #carouselExampleIndicators .carousel-indicators {
+        margin-bottom: 10px;
+    }
+
+    #carouselExampleIndicators .carousel-indicators button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: none;
+        margin: 0 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    #carouselExampleIndicators .carousel-indicators .active {
+        background-color: #3498db;
+        transform: scale(1.2);
+    }
+
+    #carouselExampleIndicators .carousel-control-prev,
+    #carouselExampleIndicators .carousel-control-next {
+        width: 5%;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    #carouselExampleIndicators .carousel-control-prev-icon,
+    #carouselExampleIndicators .carousel-control-next-icon {
+        filter: brightness(0) invert(1);
+        width: 30px;
+        height: 30px;
+    }
+
+    #carouselExampleIndicators .carousel-control-prev:hover,
+    #carouselExampleIndicators .carousel-control-next:hover {
+        opacity: 1;
+    }
+
+    /* Chỉ áp dụng cho thumbnail container */
+    .thumbnail-container {
+        gap: 15px; /* Khoảng cách giữa các thumbnail */
+    }
+
+    .thumbnail-container .thumbnail {
+        width: 120px;
+        height: 70px;
+        object-fit: cover; /* Đảm bảo ảnh vừa khung thumbnail */
+        object-position: center; /* Canh giữa ảnh trong thumbnail */
+        image-rendering: -webkit-optimize-contrast; /* Tăng độ sắc nét */
+        image-rendering: crisp-edges; /* Tối ưu độ rõ nét */
+        cursor: pointer;
+        border-radius: 6px;
+        transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .thumbnail-container .thumbnail:hover {
+        transform: scale(1.05);
+    }
+</style>

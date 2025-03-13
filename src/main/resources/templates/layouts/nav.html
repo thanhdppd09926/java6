@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        /* Custom styles for dropdown */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <header class="bg-white">
+        <div class="container mx-auto flex justify-between items-center py-4">
+            <img alt="Gavani logo" class="h-12" height="50" src="https://i.imgur.com/jyfRjtu.jpeg" width="150"/>
+
+            
+            <div class="flex items-center space-x-4">
+                <form action="/search" method="get" class="d-flex">
+                    <input class="border rounded px-4 py-2" placeholder="Tìm kiếm sản phẩm" type="search" name="keyword"/>
+                    <button class="bg-yellow-400 text-white px-4 py-2 rounded">Tìm kiếm</button>
+                </form>
+                
+            </div>
+            <div class="flex items-center space-x-4">
+                <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản Lý</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/accounts">Accounts</a></li>
+                        <li><a class="dropdown-item" href="/categories">Categories</a></li>
+                        <li><a class="dropdown-item" href="/admin/products">Products</a></li>
+                        <li><a class="dropdown-item" href="/orders">Orders</a></li>
+                    </ul>
+                </div>
+                <div th:if="${session.user != null}">
+                    <a href="/admin/products/profile" class="nav-link">Welcome, <span th:text="${session.user.fullname}"></span></a>
+                </div>
+                <div th:if="${session.user == null}">
+                    <a class="nav-link" href="/login">Đăng Nhập</a>
+                </div>
+                <div th:if="${session.user != null}">
+                    <a class="nav-link" href="/logout">Đăng Xuất</a>
+                </div>
+                <a class="text-sm" href="#">Hỗ trợ khách hàng<br/>0971 411 122</a>
+                <a class="bg-yellow-400 text-white px-4 py-2 rounded" href="/cart">Giỏ hàng</a>
+            </div>
+        </div>
+    </header>
+    <nav class="bg-red-700 text-white">
+        <div class="container mx-auto flex justify-between items-center py-2">
+            <aside class="">
+                <ul  class=" d-flex p-2" style="margin-left: 300px; ">
+                    <li class="relative dropdown" style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="/home">Trang Chủ</a>
+                   </li>
+                    <li class="relative dropdown" style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="/category/{categoryId}">NỮ</a>
+                        <ul class="dropdown-menu absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg hidden">
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Áo</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Quần</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Váy</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Phụ kiện</a></li>
+                        </ul>
+                    </li>
+                    <li class="relative dropdown" style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="/category/{categoryId}">NAM</a>
+                        <ul class="dropdown-menu absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg hidden">
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Áo</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Quần</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Phụ kiện</a></li>
+                        </ul>
+                    </li>
+                    <li class="relative dropdown"style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="#">ĐỒ ĐÔI</a>
+                        <ul class="dropdown-menu absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg hidden">
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Áo đôi</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Quần đôi</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Phụ kiện đôi</a></li>
+                        </ul>
+                    </li>
+                    <li class="relative dropdown"style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="#">KHÁNG KHUẨN &amp; CHỐNG TIA UV</a>
+                        <ul class="dropdown-menu absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg hidden">
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Áo kháng khuẩn</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Quần kháng khuẩn</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Phụ kiện kháng khuẩn</a></li>
+                        </ul>
+                    </li>
+                    <li class="relative dropdown"style="margin: 10px;">
+                        <a class="block py-2 px-4 border rounded hover:bg-black" href="#">THỜI TRANG &amp; CUỘC SỐNG</a>
+                        <ul class="dropdown-menu absolute left-0 top-full mt-2 w-48 bg-white border rounded shadow-lg hidden">
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Áo thời trang</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Quần thời trang</a></li>
+                            <li><a class="block py-2 px-4 hover:bg-gray-100" href="#">Phụ kiện thời trang</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </nav>
+ 
+     
+</body>
+</html>
