@@ -15,6 +15,11 @@
                     <input type="text" name="name" class="form-control" th:value="${product.name}" required>
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Mô tả sản phẩm</label>
+                    <input type="text" name="description" class="form-control" th:value="${product.description}"
+                        required>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Hình ảnh hiện tại</label>
                     <div>
                         <img th:src="@{|/images/${product.image}|}" width="100" alt="Current Image"

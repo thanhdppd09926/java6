@@ -19,7 +19,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 @RequestMapping("/admin/products") // Đặt mapping chung để dễ quản lý
 public class ProductsController {
@@ -36,17 +35,18 @@ public class ProductsController {
         model.addAttribute("products", products);
         return "admin/products"; // Trả về template HTML
     }
+
     //
     @GetMapping("/profile")
     public String getprofile(Model model, HttpSession session) {
         Accounts user = (Accounts) session.getAttribute("user");
         if (user == null) {
-            
+
         }
         model.addAttribute("account", user);
-            return "index/profile";
+        return "index/profile";
     }
-    
+
     // Hiển thị form thêm sản phẩm
     @GetMapping("/new")
     public String showAddProductForm(Model model) {
@@ -61,7 +61,7 @@ public class ProductsController {
     public String addProduct(@ModelAttribute Products product,
             @RequestParam("imageFile") MultipartFile imageFile) {
         if (!imageFile.isEmpty()) {
-            String imagePath = "C:/java5/ass/src/main/resources/static/images/"
+            String imagePath = "C:/java6/java6/src/main/resources/static/images/"
                     + imageFile.getOriginalFilename();
             try {
                 imageFile.transferTo(new File(imagePath));
@@ -96,7 +96,7 @@ public class ProductsController {
         Products existingProduct = productDao.findById(id).orElse(null);
         if (existingProduct != null) {
             if (imageFile != null && !imageFile.isEmpty()) {
-                String imagePath = "C:/java5/ass/src/main/resources/static/images/"
+                String imagePath = "C:/java6/java6/src/main/resources/static/images/"
                         + imageFile.getOriginalFilename();
                 try {
                     imageFile.transferTo(new File(imagePath));

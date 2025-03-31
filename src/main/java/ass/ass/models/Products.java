@@ -26,6 +26,7 @@ public class Products {
     private int id; // Khóa chính, tự động tăng
 
     private String name; // NVARCHAR(50)
+    private String description; // NVARCHAR(200)
     private String image; // NVARCHAR(50)
     private float price; // FLOAT
     private Date createDate; // DATE

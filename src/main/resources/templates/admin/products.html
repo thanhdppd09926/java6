@@ -33,6 +33,7 @@
                     <tr th:each="product : ${products}">
                         <td th:text="${product.id}"></td>
                         <td th:text="${product.name}"></td>
+                        <td th:text=" |${product.description}|"></td>
                         <td>
                             <img th:src="@{|/images/${product.image}|}" width="50" alt="Product Image"
                                 th:unless="${product.image == null}" />
@@ -63,25 +64,25 @@
 
     <style>
         body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-            }
-    
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
         }
-    
+
         .table th {
             background-color: #007bff;
             color: white;
         }
-    
+
         .activated {
             color: green;
             font-weight: bold;
         }
-    
+
         .deactivated {
             color: red;
             font-weight: bold;
