@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập & Đăng Ký</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #db766e; /* xanh dương */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        h3 {
+            color: #ffcccc;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background: #ffffff;
+            color: #007bff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 130px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .active {
+            background: #0056b3;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        .toggle {
+            text-align: center;
+            margin-top: 20px;
+            color: #f0f0f0;
+        }
+
+        .toggle a {
+            color: #ffffff;
+            text-decoration: underline;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .toggle a:hover {
+            color: #ffeb3b;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #ae220f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Đăng Nhập & Đăng Ký</h2>
+
+        <div class="button-group">
+     
+        </div>
+
+        <div id="loginForm">
+            <form action="/login" method="post">
+                <h3 th:text="${errorMessage}"></h3>
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Tên người dùng" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <button type="submit" class="submit-btn">ĐĂNG NHẬP</button>
+                <div class="toggle">
+                    <a href="/accounts/forgot-password">Quên mật khẩu?</a> |
+                    <a href="#" onclick="toggleForm('register')">Đăng ký ngay</a>
+                </div>
+            </form>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <form action="/register/new" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Tên người dùng" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="fullname" placeholder="Họ và tên" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="confirmPassword" placeholder="Xác nhận mật khẩu" required>
+                </div>
+                <button type="submit" class="submit-btn">ĐĂNG KÝ</button>
+                <div class="toggle">
+                    <a href="#" onclick="toggleForm('login')">Đăng nhập ngay</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(form) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const buttons = document.querySelectorAll('.button-group button');
+
+            loginForm.style.display = form === 'login' ? 'block' : 'none';
+            registerForm.style.display = form === 'register' ? 'block' : 'none';
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
