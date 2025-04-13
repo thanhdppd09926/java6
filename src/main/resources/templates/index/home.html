@@ -31,6 +31,11 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             width: 300px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .product:hover {
@@ -61,6 +66,20 @@
             color: #e74c3c;
             font-weight: 500;
             font-size: 1.1rem;
+        }
+
+        .button-mua-car {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product:hover .button-mua-car {
+            opacity: 1;
         }
 
         .button {
@@ -114,6 +133,11 @@
             padding-bottom: 15px;
         }
 
+        .product-container .product {
+            flex: 0 0 260px;
+            /* Đặt chiều rộng cố định cho mỗi sản phẩm để chúng nằm ngang */
+        }
+
         .product-container::-webkit-scrollbar {
             height: 8px;
         }
@@ -160,13 +184,15 @@
                             <h3 th:text="${product.name}"></h3>
                             <p th:text="${product.price}"></p>
                         </a>
-                        <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
-                            th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
-                            onclick="prepareBuyNow(this)">Mua ngay</button>
-                        <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
-                            <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
-                                alt="Cart Icon">
-                        </button>
+                        <div class="button-mua-car">
+                            <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
+                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
+                                onclick="prepareBuyNow(this)">Mua ngay</button>
+                            <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
+                                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
+                                    alt="Cart Icon">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,7 +205,6 @@
                 <h5>Sở hữu ngay son siêu xịn</h5>
                 <h3 class="fw-bold">ĐẾN TỪ THƯƠNG HIỆU UNI</h3>
                 <button class="button mt-3">Mua ngay</button>
-
                 <div class="features mt-5">
                     <div class="d-flex align-items-start mb-3">
                         <img src="https://img.icons8.com/color/48/000000/money--v1.png" class="me-3" width="40"
@@ -224,12 +249,15 @@
                         <h3 th:text="${product.name}"></h3>
                         <p th:text="${product.price}"></p>
                     </a>
-                    <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
-                        th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
-                        onclick="prepareBuyNow(this)">Mua ngay</button>
-                    <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
-                        <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png" alt="Cart Icon">
-                    </button>
+                    <div class="button-mua-car">
+                        <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
+                            th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
+                            onclick="prepareBuyNow(this)">Mua ngay</button>
+                        <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
+                            <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
+                                alt="Cart Icon">
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="d-flex title-background lazyload"
@@ -247,19 +275,19 @@
                             <h3 th:text="${product.name}"></h3>
                             <p th:text="${product.price}"></p>
                         </a>
-                        <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
-                            th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
-                            onclick="prepareBuyNow(this)">Mua ngay</button>
-                        <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
-                            <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
-                                alt="Cart Icon">
-                        </button>
+                        <div class="button-mua-car">
+                            <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
+                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
+                                onclick="prepareBuyNow(this)">Mua ngay</button>
+                            <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
+                                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
+                                    alt="Cart Icon">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Modal cho chức năng Mua ngay -->
         <div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -301,7 +329,6 @@
         </div>
     </main>
     <div th:replace="~{/layouts/footer}"></div>
-
     <script>
         function prepareBuyNow(button) {
             const productId = button.getAttribute("data-id");
@@ -311,7 +338,6 @@
 
             console.log("Price from data-price:", priceStr, "Parsed price:", price);
 
-            // Cập nhật thông tin vào các trường input trong modal
             document.getElementById("buyNowProductId").value = productId;
             document.getElementById("productName").value = productName;
             document.getElementById("price").value = price.toFixed(2);
@@ -332,10 +358,8 @@
             event.preventDefault();
             const button = event.currentTarget;
             const productId = button.getAttribute("data-id");
-            const quantity = parseInt(document.getElementById("quantity").value) || 1;  // Lấy số lượng từ input
-
-            // Bỏ qua kiểm tra username, cho phép thêm sản phẩm mà không cần đăng nhập
-            const username = ''; // Không cần lấy username từ session nữa
+            const quantity = parseInt(document.getElementById("quantity").value) || 1;
+            const username = '';
 
             fetch('/cart/add', {
                 method: 'POST',
@@ -358,12 +382,10 @@
                 });
         }
 
-        // Hàm xử lý khi thay đổi số lượng sản phẩm
         document.querySelector("#quantity").addEventListener('input', function () {
-            updateTotal(); // Cập nhật lại giá khi thay đổi số lượng
+            updateTotal();
         });
     </script>
-
 </body>
 
 </html>

@@ -27,8 +27,9 @@ public class Products {
     private int id; // Khóa chính, tự động tăng
 
     private String name; // NVARCHAR(50)
+    private String description; // NVARCHAR(200)
     private String image; // NVARCHAR(50)
-    private BigDecimal price; // Thay đổi kiểu dữ liệu từ float sang BigDecimal
+    private BigDecimal price; // FLOAT
     private Date createDate; // DATE
     private boolean available; // BIT
 
