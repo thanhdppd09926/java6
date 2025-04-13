@@ -1,0 +1,33 @@
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f7fa;
+    }
+
+    .sidebar {
+        height: auto;
+        width: 250px;
+        background: linear-gradient(135deg, #72251c, #cd4336);
+        padding: 20px;
+    }
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px;
+        display: block;
+        border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+        background: #495057;
+    }
+</style>
+
+<div class="sidebar">
+    <h2 class="text-white">Quản lý</h2>
+    <a class="dropdown-item" href="/accounts/admin">Accounts</a>
+    <a class="dropdown-item" href="/categories/admin">Categories</a>
+    <a class="dropdown-item" href="/products/admin">Products</a>
+    <a class="dropdown-item" href="/orders/admin">Orders</a>
+</div>

@@ -10,235 +10,242 @@
     <title>OCEANS - Quản lý tài khoản</title>
     <style>
         body {
-    font-family: 'Poppins', sans-serif;
-    background: #f5f7fa;
-    color: #333;
-}
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
 
-main {
-    width: 90%;
-    margin: 30px auto;
-}
+        main {
+            width: 90%;
+            margin: auto;
+        }
 
-h1 {
-    text-align: center;
-    color: #e74c3c; /* đỏ */
-    font-weight: 600;
-    margin-bottom: 30px;
-}
+        h1 {
+            text-align: center;
+            color: #e74c3c;
+            /* đỏ */
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
 
-.table {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
+        .table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.table th {
-    background: #e74c3c;
-    color: white;
-    border: none;
-}
+        .table th {
+            background: #e74c3c;
+            color: white;
+            border: none;
+        }
 
-.activated {
-    color: #1f972f;
-    font-weight: 500;
-}
+        .activated {
+            color: #1f972f;
+            font-weight: 500;
+        }
 
-.deactivated {
-    color: #e74c3c;
-    font-weight: 500;
-}
+        .deactivated {
+            color: #e74c3c;
+            font-weight: 500;
+        }
 
-.btn-primary {
-    background: #e74c3c;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-}
+        .btn-primary {
+            background: #e74c3c;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
 
-.btn-warning {
-    background: #f39c12;
-    border: none;
-    border-radius: 25px;
-    padding: 6px 12px;
-}
+        .btn-warning {
+            background: #f39c12;
+            border: none;
+            border-radius: 25px;
+            padding: 6px 12px;
+        }
 
-.btn-danger {
-    background: #c0392b;
-    border: none;
-    border-radius: 25px;
-    padding: 6px 12px;
-}
+        .btn-danger {
+            background: #c0392b;
+            border: none;
+            border-radius: 25px;
+            padding: 6px 12px;
+        }
 
-.modal-content {
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
+        .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
 
-.modal-header {
-    background: #e74c3c;
-    color: white;
-    border-radius: 15px 15px 0 0;
-}
+        .modal-header {
+            background: #e74c3c;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
 
-.form-control {
-    border-radius: 8px;
-    padding: 10px;
-}
+        .form-control {
+            border-radius: 8px;
+            padding: 10px;
+        }
 
-.btn-secondary {
-    background: #95a5a6;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-}
-
+        .btn-secondary {
+            background: #95a5a6;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
     </style>
 </head>
 
 <body>
-    <header th:replace="~{/layouts/nav}"></header>
-    <main>
-        <h1>Danh sách tài khoản</h1>
-        <div class="container">
-            <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">Thêm tài
-                khoản</button>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tên đăng nhập</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>Trạng thái</th>
-                        <th>Quyền quản trị</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="account : ${accounts}">
-                        <td th:text="${account.username}"></td>
-                        <td th:text="${account.fullname}"></td>
-                        <td th:text="${account.email}"></td>
-                        <td th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"
-                            th:class="${account.activated} ? 'activated' : 'deactivated'"></td>
-                        <td th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editAccountModal" th:data-username="${account.username}"
-                                th:data-fullname="${account.fullname}" th:data-email="${account.email}"
-                                th:data-activated="${account.activated}" th:data-admin="${account.admin}">Sửa</button>
-                            <form method="post" th:action="@{/accounts/admin/delete}" style="display:inline;">
-                                <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                                <input type="hidden" name="username" th:value="${account.username}" />
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div th:replace="~{/layouts/nav}"></div>
+    <div class="d-flex">
+        <header th:replace="~{/layouts/nav-admin}"></header>
+        <main>
 
-        <!-- Modal Thêm Tài Khoản -->
-        <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" th:action="@{/accounts/admin}">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addAccountModalLabel">Thêm Tài Khoản</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label>Tên đăng nhập</label>
-                                <input type="text" name="username" class="form-control" required />
+            <h1>Danh sách tài khoản</h1>
+            <div class="container">
+                <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addAccountModal">Thêm tài
+                    khoản</button>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tên đăng nhập</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Trạng thái</th>
+                            <th>Quyền quản trị</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="account : ${accounts}">
+                            <td th:text="${account.username}"></td>
+                            <td th:text="${account.fullname}"></td>
+                            <td th:text="${account.email}"></td>
+                            <td th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"
+                                th:class="${account.activated} ? 'activated' : 'deactivated'"></td>
+                            <td th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editAccountModal" th:data-username="${account.username}"
+                                    th:data-fullname="${account.fullname}" th:data-email="${account.email}"
+                                    th:data-activated="${account.activated}"
+                                    th:data-admin="${account.admin}">Sửa</button>
+                                <form method="post" th:action="@{/accounts/admin/delete}" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    <input type="hidden" name="username" th:value="${account.username}" />
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal Thêm Tài Khoản -->
+            <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" th:action="@{/accounts/admin}">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addAccountModalLabel">Thêm Tài Khoản</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="mb-3">
-                                <label>Mật khẩu</label>
-                                <input type="password" name="password" class="form-control" required />
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label>Tên đăng nhập</label>
+                                    <input type="text" name="username" class="form-control" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Mật khẩu</label>
+                                    <input type="password" name="password" class="form-control" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Họ tên</label>
+                                    <input type="text" name="fullname" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Trạng thái</label>
+                                    <select name="activated" class="form-control">
+                                        <option value="true">Đã kích hoạt</option>
+                                        <option value="false">Chưa kích hoạt</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Quyền quản trị</label>
+                                    <select name="admin" class="form-control">
+                                        <option value="true">Quản trị viên</option>
+                                        <option value="false">Người dùng</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label>Họ tên</label>
-                                <input type="text" name="fullname" class="form-control" />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
-                            <div class="mb-3">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" required />
-                            </div>
-                            <div class="mb-3">
-                                <label>Trạng thái</label>
-                                <select name="activated" class="form-control">
-                                    <option value="true">Đã kích hoạt</option>
-                                    <option value="false">Chưa kích hoạt</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label>Quyền quản trị</label>
-                                <select name="admin" class="form-control">
-                                    <option value="true">Quản trị viên</option>
-                                    <option value="false">Người dùng</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Lưu</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal Sửa Tài Khoản -->
-        <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" th:action="@{/accounts/admin/update}">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editAccountModalLabel">Sửa Tài Khoản</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label>Tên đăng nhập</label>
-                                <input type="text" name="username" class="form-control" readonly />
+            <!-- Modal Sửa Tài Khoản -->
+            <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="post" th:action="@{/accounts/admin/update}">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editAccountModalLabel">Sửa Tài Khoản</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="mb-3">
-                                <label>Mật khẩu</label>
-                                <input type="password" name="password" class="form-control" />
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label>Tên đăng nhập</label>
+                                    <input type="text" name="username" class="form-control" readonly />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Mật khẩu</label>
+                                    <input type="password" name="password" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Họ tên</label>
+                                    <input type="text" name="fullname" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Trạng thái</label>
+                                    <select name="activated" class="form-control">
+                                        <option value="true">Đã kích hoạt</option>
+                                        <option value="false">Chưa kích hoạt</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Quyền quản trị</label>
+                                    <select name="admin" class="form-control">
+                                        <option value="true">Quản trị viên</option>
+                                        <option value="false">Người dùng</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label>Họ tên</label>
-                                <input type="text" name="fullname" class="form-control" />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
                             </div>
-                            <div class="mb-3">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label>Trạng thái</label>
-                                <select name="activated" class="form-control">
-                                    <option value="true">Đã kích hoạt</option>
-                                    <option value="false">Chưa kích hoạt</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label>Quyền quản trị</label>
-                                <select name="admin" class="form-control">
-                                    <option value="true">Quản trị viên</option>
-                                    <option value="false">Người dùng</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <button type="submit" class="btn btn-primary">Lưu</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
     <div th:replace="~{/layouts/footer}"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -358,8 +358,10 @@
             event.preventDefault();
             const button = event.currentTarget;
             const productId = button.getAttribute("data-id");
-            const quantity = parseInt(document.getElementById("quantity").value) || 1;
-            const username = '';
+            const quantity = parseInt(document.getElementById("quantity").value) || 1;  // Lấy số lượng từ input
+
+            // Bỏ qua kiểm tra username, cho phép thêm sản phẩm mà không cần đăng nhập
+            const username = ''; // Không cần lấy username từ session nữa
 
             fetch('/cart/add', {
                 method: 'POST',
@@ -382,10 +384,12 @@
                 });
         }
 
+        // Hàm xử lý khi thay đổi số lượng sản phẩm
         document.querySelector("#quantity").addEventListener('input', function () {
-            updateTotal();
+            updateTotal(); // Cập nhật lại giá khi thay đổi số lượng
         });
     </script>
+
 </body>
 
 </html>

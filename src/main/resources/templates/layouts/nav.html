@@ -37,6 +37,7 @@
             <div th:if="${session.user != null}" class="d-flex align-items-center ">
                 <!-- Hồ sơ -->
                 <a class="nav-link" href="/accounts/profile">
+
                     <img src="https://img.icons8.com/ios/30/000000/user-male-circle.png"
                         style=" filter: brightness(0); /* chuyển về đen */" alt="Profile Icon" />
                 </a>
@@ -54,14 +55,45 @@
     </div>
 </nav>
 
+
+<!-- Thanh dưới: danh mục -->
+<nav class="navbar navbar-expand-lg navbar-bottom">
+    <div class="container-fluid justify-content-center">
+        <div class="navbar-nav">
+            <a class="nav-link" href="/categories/C001">Electronics</a>
+            <a class="nav-link" href="/categories/C002">Books</a>
+            <a class="nav-link" href="/categories/C003">Clothing</a>
+            <a class="nav-link" href="/categories/C004">Home & Kitchen</a>
+            <a class="nav-link" href="/categories/C005">Health & Beauty</a>
+            <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản Lý</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/accounts/admin">Accounts</a></li>
+                    <li><a class="dropdown-item" href="/categories/admin">Categories</a></li>
+                    <li><a class="dropdown-item" href="/products/admin">Products</a></li>
+                    <li><a class="dropdown-item" href="/orders/admin">Orders</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <style>
     /* custom-navbar.css */
 
+    /* Thanh trên - đỏ nhạt hơn */
+    .navbar-top {
+        background: linear-gradient(135deg, #72251c, #cd4336);
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
     /* Thanh dưới - đỏ đậm hơn */
     .navbar-bottom {
-        background-color: #ffffff;
-        padding: 0.7rem 0rem;
+        background-color: #922b21;
+        padding: 0.7rem 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
     }
 
     /* Giữ nguyên phần còn lại */
@@ -94,6 +126,7 @@
     }
 
     .nav-link {
+
         color: rgb(12, 12, 12) !important;
         font-weight: 500;
         margin: 0 15px;
