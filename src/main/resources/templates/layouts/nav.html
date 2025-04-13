@@ -3,7 +3,8 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="/home">WEB SHOP</a>
         <form class="d-flex mx-auto" action="/search" method="get">
-            <input class="form-control search-bar me-2" type="search" name="keyword" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+            <input class="form-control search-bar me-2" type="search" name="keyword" placeholder="Tìm kiếm sản phẩm..."
+                aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">Tìm</button>
         </form>
         <div class="d-flex align-items-center ms-3">
@@ -16,11 +17,11 @@
             <div th:if="${session.user != null}" class="d-flex align-items-center">
                 <!-- Hồ sơ -->
                 <a class="nav-link" href="/accounts/profile">
-                    <img src="https://img.icons8.com/ios/30/000000/user-male-circle.png" alt="Profile Icon"/>
+                    <img src="https://img.icons8.com/ios/30/000000/user-male-circle.png" alt="Profile Icon" />
                 </a>
                 <!-- Đăng Xuất (nằm bên phải của Hồ sơ) -->
                 <a class="nav-link ms-2" href="/logout">
-                    <img src="https://img.icons8.com/ios/30/000000/logout-rounded.png" alt="Logout Icon"/>
+                    <img src="https://img.icons8.com/ios/30/000000/logout-rounded.png" alt="Logout Icon" />
                 </a>
             </div>
             <a class="nav-link" th:href="@{|/cart?username=${session.user?.username}|}">
@@ -35,11 +36,11 @@
 <nav class="navbar navbar-expand-lg navbar-bottom">
     <div class="container-fluid justify-content-center">
         <div class="navbar-nav">
-            <a class="nav-link" href="/categories/1">Điện thoại</a>
-            <a class="nav-link" href="/categories/2">Laptop</a>
-            <a class="nav-link" href="/categories/3">Tai nghe</a>
-            <a class="nav-link" href="/categories/4">Tivi</a>
-            <a class="nav-link" href="/categories/5">Khác</a>
+            <a class="nav-link" href="/categories/C001">Electronics</a>
+            <a class="nav-link" href="/categories/C002">Books</a>
+            <a class="nav-link" href="/categories/C003">Clothing</a>
+            <a class="nav-link" href="/categories/C004">Home & Kitchen</a>
+            <a class="nav-link" href="/categories/C005">Health & Beauty</a>
             <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản Lý</a>
                 <ul class="dropdown-menu">
@@ -54,80 +55,78 @@
 </nav>
 
 <style>
-   /* custom-navbar.css */
+    /* custom-navbar.css */
 
-/* Thanh trên - đỏ nhạt hơn */
-.navbar-top {
-    background: linear-gradient(135deg, #72251c, #cd4336);
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+    /* Thanh trên - đỏ nhạt hơn */
+    .navbar-top {
+        background: linear-gradient(135deg, #72251c, #cd4336);
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
-/* Thanh dưới - đỏ đậm hơn */
-.navbar-bottom {
-    background-color: #922b21;
-    padding: 0.7rem 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
+    /* Thanh dưới - đỏ đậm hơn */
+    .navbar-bottom {
+        background-color: #922b21;
+        padding: 0.7rem 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
 
-/* Giữ nguyên phần còn lại */
-.navbar-brand {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white !important;
-    letter-spacing: 1px;
-}
+    /* Giữ nguyên phần còn lại */
+    .navbar-brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: white !important;
+        letter-spacing: 1px;
+    }
 
-.search-bar {
-    width: 400px;
-    border-radius: 25px;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-}
+    .search-bar {
+        width: 400px;
+        border-radius: 25px;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
 
-.btn-outline-primary {
-    border-radius: 25px;
-    padding: 0.5rem 1.5rem;
-    color: white;
-    border-color: white;
-    transition: all 0.3s ease;
-}
+    .btn-outline-primary {
+        border-radius: 25px;
+        padding: 0.5rem 1.5rem;
+        color: white;
+        border-color: white;
+        transition: all 0.3s ease;
+    }
 
-.btn-outline-primary:hover {
-    background: white;
-    color: #e74c3c;
-}
+    .btn-outline-primary:hover {
+        background: white;
+        color: #e74c3c;
+    }
 
-.nav-link {
-    color: white !important;
-    font-weight: 500;
-    margin: 0 15px;
-    transition: all 0.3s ease;
-}
+    .nav-link {
+        color: white !important;
+        font-weight: 500;
+        margin: 0 15px;
+        transition: all 0.3s ease;
+    }
 
-.nav-link:hover {
-    color: #ffd700 !important;
-    transform: translateY(-2px);
-}
+    .nav-link:hover {
+        color: #ffd700 !important;
+        transform: translateY(-2px);
+    }
 
-.nav-link img {
-    filter: invert(1);
-}
+    .nav-link img {
+        filter: invert(1);
+    }
 
-.dropdown-menu {
-    background: #0d0303;
-    border: none;
-    border-radius: 10px;
-}
+    .dropdown-menu {
+        background: #0d0303;
+        border: none;
+        border-radius: 10px;
+    }
 
-.dropdown-item {
-    color: white;
-}
+    .dropdown-item {
+        color: white;
+    }
 
-.dropdown-item:hover {
-    background: #e74c3c;
-}
-
-
+    .dropdown-item:hover {
+        background: #e74c3c;
+    }
 </style>
