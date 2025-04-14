@@ -71,54 +71,57 @@
 </head>
 
 <body>
-    <header th:replace="~{/layouts/nav}"></header>
-    <main>
-        <h1>Thêm sản phẩm</h1>
-        <div class="form-container">
-            <!-- <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div> -->
+    <div th:replace="~{/layouts/nav}"></div>
+    <div class="d-flex">
+        <header th:replace="~{/layouts/nav-admin}"></header>
+        <main>
+            <h1>Thêm sản phẩm</h1>
+            <div class="form-container">
+                <!-- <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div> -->
 
-            <form th:action="@{/products/admin/new}" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label class="form-label">Tên sản phẩm</label>
-                    <input type="text" name="name" class="form-control" placeholder="Tên sản phẩm" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Mô tả sản phẩm</label>
-                    <input type="text" name="description" class="form-control" placeholder="Tên sản phẩm">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Hình ảnh</label>
-                    <input type="file" name="imageFile" class="form-control" accept="image/*" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Giá</label>
-                    <input type="number" name="price" class="form-control" placeholder="Giá" step="0.01" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Ngày tạo</label>
-                    <input type="date" name="createDate" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Trạng thái</label>
-                    <select name="available" class="form-control" required>
-                        <option value="true">Còn hàng</option>
-                        <option value="false">Hết hàng</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Danh mục</label>
-                    <select name="category.id" class="form-control" required>
-                        <option value="">-- Chọn danh mục --</option>
-                        <th:block th:each="category : ${categories}">
-                            <option th:value="${category.id}" th:text="${category.name}"></option>
-                        </th:block>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
-                <a th:href="@{/products/admin}" class="btn btn-primary">Hủy</a>
-            </form>
-        </div>
-    </main>
+                <form th:action="@{/products/admin/new}" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Tên sản phẩm</label>
+                        <input type="text" name="name" class="form-control" placeholder="Tên sản phẩm" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Mô tả sản phẩm</label>
+                        <input type="text" name="description" class="form-control" placeholder="Tên sản phẩm">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hình ảnh</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá</label>
+                        <input type="number" name="price" class="form-control" placeholder="Giá" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ngày tạo</label>
+                        <input type="date" name="createDate" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Trạng thái</label>
+                        <select name="available" class="form-control" required>
+                            <option value="true">Còn hàng</option>
+                            <option value="false">Hết hàng</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Danh mục</label>
+                        <select name="category.id" class="form-control" required>
+                            <option value="">-- Chọn danh mục --</option>
+                            <th:block th:each="category : ${categories}">
+                                <option th:value="${category.id}" th:text="${category.name}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                    <a th:href="@{/products/admin}" class="btn btn-primary">Hủy</a>
+                </form>
+            </div>
+        </main>
+    </div>
     <div th:replace="~{/layouts/footer}"></div>
 </body>
 

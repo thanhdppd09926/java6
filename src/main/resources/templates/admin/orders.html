@@ -22,7 +22,8 @@
 
         h1,
         h2 {
-            color: #e74c3c; /* Màu đỏ làm chủ đạo */
+            color: #e74c3c;
+            /* Màu đỏ làm chủ đạo */
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -40,75 +41,82 @@
         }
 
         .table th {
-            background: #e74c3c; /* Màu đỏ cho header bảng */
+            background: #e74c3c;
+            /* Màu đỏ cho header bảng */
             color: white;
         }
 
         .btn-primary {
-            background: #e74c3c; /* Màu đỏ cho nút chính */
+            background: #e74c3c;
+            /* Màu đỏ cho nút chính */
             border: none;
             border-radius: 25px;
             padding: 10px 20px;
         }
 
         .btn-warning {
-            background: #f39c12; /* Vàng cho nút cảnh báo */
+            background: #f39c12;
+            /* Vàng cho nút cảnh báo */
             border: none;
             border-radius: 25px;
             padding: 6px 12px;
         }
 
         .btn-danger {
-            background: #c0392b; /* Đỏ đậm cho nút xóa */
+            background: #c0392b;
+            /* Đỏ đậm cho nút xóa */
             border: none;
             border-radius: 25px;
             padding: 6px 12px;
         }
 
-        .btn-primary:hover, .btn-warning:hover, .btn-danger:hover {
-            opacity: 0.9; /* Hiệu ứng hover cho các nút */
+        .btn-primary:hover,
+        .btn-warning:hover,
+        .btn-danger:hover {
+            opacity: 0.9;
+            /* Hiệu ứng hover cho các nút */
         }
     </style>
 </head>
 
 <body>
-    <!-- Thêm header từ layout nav -->
-    <header th:replace="~{/layouts/nav}"></header>
-
-    <main>
-        <div class="container">
-            <h1>Quản lý đơn hàng</h1>
-            <h2>Danh sách đơn hàng</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Ngày tạo</th>
-                        <th>Địa chỉ</th>
-                        <th>Khách hàng</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="order : ${orders}">
-                        <td th:text="${order.id}"></td>
-                        <td th:text="${order.createDate}"></td>
-                        <td th:text="${order.address}"></td>
-                        <td th:text="${order.account.fullname}"></td>
-                        <td>
-                            <a th:href="@{'/orders/admin/details/' + ${order.id}}" class="btn btn-warning btn-sm">Xem chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr th:if="${orders.isEmpty()}">
-                        <td colspan="5" class="text-center">Không có đơn hàng nào.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="/home" class="btn btn-primary mt-3">Quay lại</a>
-        </div>
-    </main>
-
-    <!-- Có thể thêm footer nếu cần -->
+    <div th:replace="~{/layouts/nav}"></div>
+    <div class="d-flex">
+        <header th:replace="~{/layouts/nav-admin}"></header>
+        <main>
+            <div class="container">
+                <h1>Quản lý đơn hàng</h1>
+                <h2>Danh sách đơn hàng</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ngày tạo</th>
+                            <th>Địa chỉ</th>
+                            <th>Khách hàng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.createDate}"></td>
+                            <td th:text="${order.address}"></td>
+                            <td th:text="${order.account.fullname}"></td>
+                            <td>
+                                <a th:href="@{'/orders/admin/details/' + ${order.id}}"
+                                    class="btn btn-warning btn-sm">Xem chi tiết</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${orders.isEmpty()}">
+                            <td colspan="5" class="text-center">Không có đơn hàng nào.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="/home" class="btn btn-primary mt-3">Quay lại</a>
+            </div>
+        </main>
+    </div>
     <div th:replace="~{/layouts/footer}"></div>
 </body>
 

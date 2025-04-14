@@ -1,27 +1,7 @@
-<!-- Thanh dưới: danh mục -->
-<nav class="navbar navbar-expand-lg navbar-bottom">
-    <div class="admin-left">
-        <a href="/home">
-            <img class="admin-logo mr-5" src="https://i.imgur.com/ChW5kDo.png" width="60%" alt="">
-        </a>
-    </div>
-    <div class="container-fluid justify-content-center">
-        <div class="navbar-nav">
-            <a class="nav-link" href="/categories/1">TRANG CHỦ</a>
-            <a class="nav-link" href="/categories/2">GIỚI THIỆU</a>
-            <a class="nav-link" href="/categories/3">SẢN PHẨM</a>
-            <a class="nav-link" href="/categories/4">LIÊN HỆ</a>
-            <a class="nav-link" href="/categories/5">Khác</a>
-            <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản Lý</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/accounts/admin">Accounts</a></li>
-                    <li><a class="dropdown-item" href="/categories/admin">Categories</a></li>
-                    <li><a class="dropdown-item" href="/products/admin">Products</a></li>
-                    <li><a class="dropdown-item" href="/orders/admin">Orders</a></li>
-                </ul>
-            </div>
-        </div>
+<!-- Thanh trên: logo, tìm kiếm, tài khoản -->
+<nav class="navbar navbar-expand-lg navbar-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">WEB SHOP</a>
         <form class="d-flex mx-auto" action="/search" method="get">
             <input class="form-control search-bar me-2" type="search" name="keyword" placeholder="Tìm kiếm sản phẩm..."
                 aria-label="Search">
@@ -34,22 +14,18 @@
             <div th:if="${session.user == null}">
                 <a class="nav-link" href="/login">Đăng Nhập</a>
             </div>
-            <div th:if="${session.user != null}" class="d-flex align-items-center ">
+            <div th:if="${session.user != null}" class="d-flex align-items-center">
                 <!-- Hồ sơ -->
                 <a class="nav-link" href="/accounts/profile">
-
-                    <img src="https://img.icons8.com/ios/30/000000/user-male-circle.png"
-                        style=" filter: brightness(0); /* chuyển về đen */" alt="Profile Icon" />
+                    <img src="https://img.icons8.com/ios/30/000000/user-male-circle.png" alt="Profile Icon" />
                 </a>
                 <!-- Đăng Xuất (nằm bên phải của Hồ sơ) -->
                 <a class="nav-link ms-2" href="/logout">
-                    <img src="https://img.icons8.com/ios/30/000000/logout-rounded.png"
-                        style=" filter: brightness(0); /* chuyển về đen */" alt="Logout Icon" />
+                    <img src="https://img.icons8.com/ios/30/000000/logout-rounded.png" alt="Logout Icon" />
                 </a>
             </div>
             <a class="nav-link" th:href="@{|/cart?username=${session.user?.username}|}">
-                <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"
-                    style=" filter: brightness(0); /* chuyển về đen */" alt="Cart Icon" />
+                <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Cart Icon" />
             </a>
         </div>
     </div>
@@ -83,24 +59,23 @@
 
     /* Thanh trên - đỏ nhạt hơn */
     .navbar-top {
-        background: linear-gradient(135deg, #72251c, #cd4336);
+        background: linear-gradient(135deg, #fdfdfd, #b7a5a5);
         padding: 1rem 2rem;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     /* Thanh dưới - đỏ đậm hơn */
     .navbar-bottom {
-        background-color: #922b21;
+        background: linear-gradient(135deg, #fdfdfd, #b7a5a5);
         padding: 0.7rem 2rem;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-
     }
 
     /* Giữ nguyên phần còn lại */
     .navbar-brand {
         font-size: 1.8rem;
         font-weight: 700;
-        color: white !important;
+        color: rgb(0, 0, 0) !important;
         letter-spacing: 1px;
     }
 
