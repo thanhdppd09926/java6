@@ -48,6 +48,20 @@ public class HomeController {
         return "index/home";
     }
 
+    @GetMapping("/home-product")
+    public String homeproduct(Model model, HttpSession session) {
+        List<Products> products = productRepository.findAll();
+        model.addAttribute("productsHome", products);
+        Accounts user = (Accounts) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            System.out.println("Home user: " + user.getUsername());
+        } else {
+            System.out.println("No user in session");
+        }
+        return "index/home-product";
+    }
+
     @GetMapping("/product")
     public String product() {
         return "index/product_detail";
