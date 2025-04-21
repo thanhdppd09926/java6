@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -30,16 +32,25 @@ public class CartController {
     private CartDao cartDao;
 
     @GetMapping
-    public String viewCart(HttpSession session, Model model) {
-        Accounts user = (Accounts) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/login";
-        }
-        List<Cart> cartItems = cartService.viewCart(user.getUsername());
-        model.addAttribute("cartItems", cartItems);
-        model.addAttribute("username", user.getUsername());
-        return "index/cart";
+public String viewCart(HttpSession session, Model model) {
+    Accounts user = (Accounts) session.getAttribute("user");
+    if (user == null) {
+        return "redirect:/login";
     }
+
+    List<Cart> cartItems = cartService.viewCart(user.getUsername());
+
+    BigDecimal totalAmount = cartItems.stream()
+        .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    model.addAttribute("cartItems", cartItems);
+    model.addAttribute("username", user.getUsername());
+    model.addAttribute("totalAmount", totalAmount);
+
+    return "index/cart";
+}
+
 
     @PostMapping("/add")
 public String addToCart(@RequestParam(required = false) String username, @RequestParam int productId, @RequestParam int quantity, HttpSession session) {
