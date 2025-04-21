@@ -108,7 +108,7 @@ public class ProductsController {
                         + imageFile.getOriginalFilename();
                 try {
                     imageFile.transferTo(new File(imagePath));
-                    product.setImage("/images/" + imageFile.getOriginalFilename());
+                    product.setImage("" + imageFile.getOriginalFilename());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

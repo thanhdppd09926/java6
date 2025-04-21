@@ -24,7 +24,6 @@ public class Accounts {
     @NotBlank(message = "Không được để trống!")
     private String password; // NVARCHAR(50)
     private String fullname; // NVARCHAR(50)
-
     @Email(message = "Không đúng định dạng Email!")
     private String email; // NVARCHAR(50), UNIQUE
     private String photo; // NVARCHAR(50)
