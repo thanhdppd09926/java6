@@ -146,7 +146,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" th:action="@{/accounts/admin}">
+                        <form method="post" th:action="@{/accounts/admin}" enctype="multipart/form-data">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addAccountModalLabel">Thêm Tài Khoản</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -168,6 +168,10 @@
                                 <div class="mb-3">
                                     <label>Email</label>
                                     <input type="email" name="email" class="form-control" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Ảnh đại diện</label>
+                                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
                                 </div>
                                 <div class="mb-3">
                                     <label>Trạng thái</label>
@@ -198,7 +202,7 @@
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" th:action="@{/accounts/admin/update}">
+                        <form method="post" th:action="@{/accounts/admin/update}" enctype="multipart/form-data">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="editAccountModalLabel">Sửa Tài Khoản</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -220,6 +224,10 @@
                                 <div class="mb-3">
                                     <label>Email</label>
                                     <input type="email" name="email" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Ảnh đại diện</label>
+                                    <input type="file" name="imageFile" class="form-control" accept="image/*" />
                                 </div>
                                 <div class="mb-3">
                                     <label>Trạng thái</label>
@@ -264,6 +272,24 @@
             modal.find('input[name="email"]').val(email);
             modal.find('select[name="activated"]').val(activated.toString());
             modal.find('select[name="admin"]').val(admin.toString());
+        });
+        document.querySelector('input[name="imageFile"]').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    let preview = document.getElementById('imagePreview');
+                    if (!preview) {
+                        preview = document.createElement('img');
+                        preview.id = 'imagePreview';
+                        preview.style.maxWidth = '200px';
+                        preview.style.marginTop = '10px';
+                        e.target.parentNode.appendChild(preview);
+                    }
+                    preview.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 </body>

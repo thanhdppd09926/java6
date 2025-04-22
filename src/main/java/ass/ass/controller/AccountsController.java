@@ -36,7 +36,7 @@ public class AccountsController {
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
-    private static final String UPLOAD_DIR = "D:/ass/ass/src/main/resources/static/photos";
+    private static final String UPLOAD_DIR = "D:\\Java\\ass\\src\\main\\resources\\static\\photos\\";
 
     // Hiển thị danh sách tài khoản
     @GetMapping("/admin")
@@ -160,7 +160,7 @@ public class AccountsController {
     }
 
     // Phương thức lưu ảnh
-    private void saveImage(Accounts account, @RequestPart("imageFile") MultipartFile imageFile) throws IOException {
+    private void saveImage(Accounts account, @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
         if (imageFile != null && !imageFile.isEmpty()) {
             // Tạo tên file duy nhất để tránh trùng lặp
             String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
