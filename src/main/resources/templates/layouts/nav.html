@@ -13,13 +13,7 @@
             <a class="nav-link" href="/categories/4">LIÊN HỆ</a>
             <a class="nav-link" href="/categories/5">Khác</a>
             <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Quản Lý</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/accounts/admin">Accounts</a></li>
-                    <li><a class="dropdown-item" href="/categories/admin">Categories</a></li>
-                    <li><a class="dropdown-item" href="">Products</a></li>
-                    <li><a class="dropdown-item" href="/orders/admin">Orders</a></li>
-                </ul>
+                <a class="nav-link" href="/accounts/admin">Quản Lý</a>
             </div>
         </div>
         <form class="d-flex mx-auto" action="/search" method="get">
