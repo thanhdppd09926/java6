@@ -223,6 +223,35 @@
                     </div>
                 </div>
             </div>
+            <!-- PHÂN TRANG ĐẸP -->
+            <nav aria-label="Page navigation" class="mt-4 d-flex justify-content-center" th:if="${totalPages > 1}">
+                <ul class="pagination pagination-lg">
+                    <!-- Nút Previous -->
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link rounded-pill px-3"
+                            th:href="@{/home-product(page=${currentPage - 1}, size=${pageSize})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Các nút số trang -->
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link rounded-pill mx-1"
+                            th:classappend="${i == currentPage} ? 'bg-primary text-white border-primary' : 'text-dark border-secondary'"
+                            th:href="@{/home-product(page=${i}, size=${pageSize})}" th:text="${i + 1}">1</a>
+                    </li>
+
+                    <!-- Nút Next -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link rounded-pill px-3"
+                            th:href="@{/home-product(page=${currentPage + 1}, size=${pageSize})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
         <div class="modal fade" id="buyNowModal" tabindex="-1" aria-labelledby="buyNowModalLabel" aria-hidden="true">
             <div class="modal-dialog">

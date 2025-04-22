@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,16 +54,24 @@ public class HomeController {
     }
 
     @GetMapping("/home-product")
-    public String homeproduct(Model model, HttpSession session) {
-        List<Products> products = productRepository.findAll();
-        model.addAttribute("productsHome", products);
+    public String homeProduct(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "8") int size,
+            Model model,
+            HttpSession session) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Products> productPage = productRepository.findAll(pageable);
+
+        model.addAttribute("productsHome", productPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("pageSize", size); // để Thymeleaf sinh đúng đường dẫn
+
         Accounts user = (Accounts) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
-            System.out.println("Home user: " + user.getUsername());
-        } else {
-            System.out.println("No user in session");
         }
+
         return "index/home-product";
     }
 
