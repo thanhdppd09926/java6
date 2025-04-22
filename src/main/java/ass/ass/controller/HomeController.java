@@ -1,5 +1,6 @@
 package ass.ass.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model, HttpSession session) {
         List<Products> products = productRepository.findAll();
+        Collections.shuffle(products);
         model.addAttribute("productsHome", products);
         Accounts user = (Accounts) session.getAttribute("user");
         if (user != null) {
