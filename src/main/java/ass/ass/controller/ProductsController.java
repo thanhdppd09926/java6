@@ -50,7 +50,7 @@ public class ProductsController {
                 String extension = originalFilename.substring(originalFilename.lastIndexOf(""));
                 String newFileName = cleanName + extension;
 
-                String imagePath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos"
+                String imagePath = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\"
                         + newFileName;
 
                 imageFile.transferTo(new File(imagePath));
@@ -104,7 +104,7 @@ public class ProductsController {
         Products existingProduct = productDao.findById(id).orElse(null);
         if (existingProduct != null) {
             if (imageFile != null && !imageFile.isEmpty()) {
-                String imagePath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos"
+                String imagePath = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\"
                         + imageFile.getOriginalFilename();
                 try {
                     imageFile.transferTo(new File(imagePath));
