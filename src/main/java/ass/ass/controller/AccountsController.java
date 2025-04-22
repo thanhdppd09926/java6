@@ -10,7 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ass.ass.dao.AccountDao;
 import ass.ass.models.Accounts;
-
+import ass.ass.models.Categories;
+import ass.ass.repository.CategoryRepository;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class AccountsController {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
@@ -43,6 +46,8 @@ public class AccountsController {
     public String getAllAccounts(Model model) {
         List<Accounts> accounts = accountDao.findAll();
         model.addAttribute("accounts", accounts);
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "admin/accounts";
     }
 

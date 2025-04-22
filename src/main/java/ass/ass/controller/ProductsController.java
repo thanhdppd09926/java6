@@ -4,6 +4,8 @@ import ass.ass.dao.CategoryDao;
 import ass.ass.dao.ProductDao;
 import ass.ass.models.Categories;
 import ass.ass.models.Products;
+import ass.ass.repository.CategoryRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +26,15 @@ public class ProductsController {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @GetMapping("")
     public String getAllProducts(Model model) {
         List<Products> products = productDao.findAll();
         model.addAttribute("products", products);
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "admin/products"; // Trả về template HTML
     }
 

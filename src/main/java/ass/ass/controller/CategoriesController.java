@@ -15,6 +15,7 @@ import ass.ass.dao.CategoryDao;
 import ass.ass.dao.ProductDao;
 import ass.ass.models.Categories;
 import ass.ass.models.Products;
+import ass.ass.repository.CategoryRepository;
 
 @Controller
 @RequestMapping("/categories")
@@ -25,6 +26,9 @@ public class CategoriesController {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     // Hiển thị danh sách danh mục
     @GetMapping("admin")
@@ -39,6 +43,8 @@ public class CategoriesController {
     public String getProductsByCategory(@PathVariable String categoryId, Model model) {
         List<Products> products = productDao.findByCategoryId(categoryId);
         model.addAttribute("products", products);
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "index/category"; // Trả về template HTML cho người dùng
     }
 
