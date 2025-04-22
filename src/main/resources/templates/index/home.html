@@ -188,7 +188,7 @@
                         </a>
                         <div class="button-mua-car">
                             <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
-                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
+                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA')}"
                                 onclick="prepareBuyNow(this)">Mua ngay</button>
                             <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
                                 <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
@@ -342,7 +342,7 @@
 
             document.getElementById("buyNowProductId").value = productId;
             document.getElementById("productName").value = productName;
-            document.getElementById("price").value = price.toFixed(2);
+            document.getElementById("price").value = price.toFixed(0);
             updateTotal();
         }
 
