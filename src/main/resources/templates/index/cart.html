@@ -173,15 +173,23 @@
           <input type="text" id="address" name="address" required />
 
           <!-- Nút thanh toán thường -->
-          <button type="submit" class="btn checkout-btn">Thanh toán</button>
+          <!-- <button type="submit" class="btn checkout-btn">Thanh toán</button>
 
-          <!-- Nút thanh toán ZaloPay -->
-          <button
+          !-- Nút thanh toán ZaloPay -->
+          <!-- <button
             type="button"
             class="btn checkout-btn"
             onclick="payWithZaloPay()"
           >
             Thanh toán qua ZaloPay
+          </button>  -->
+          <!-- Nút thanh toán duy nhất -->
+          <button
+            type="button"
+            class="btn checkout-btn"
+            onclick="processUnifiedCheckout()"
+          >
+            Thanh toán đơn hàng
           </button>
         </form>
       </div>
@@ -189,7 +197,7 @@
       <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
     </main>
 
-    <script th:inline="javascript">
+    <!-- <script th:inline="javascript">
       const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0); // làm tròn số tiền // Tổng số tiền giỏ hàng được chèn từ controller
       function processCheckout() {
         const address = document.getElementById("address").value.trim();
@@ -243,6 +251,47 @@
           .catch((error) => {
             console.error(error);
             alert("Lỗi khi kết nối đến ZaloPay.");
+          });
+      }
+    </script> -->
+    <script th:inline="javascript">
+      const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0);
+      function processUnifiedCheckout() {
+        const address = document.getElementById("address").value.trim();
+        if (!address) {
+          alert("Vui lòng nhập địa chỉ giao hàng!");
+          return;
+        }
+
+        if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+          alert("Số tiền thanh toán không hợp lệ!");
+          return;
+        }
+
+        // Tùy chọn: xử lý thanh toán nội bộ hay qua ZaloPay tại đây
+        fetch("/api/zalopay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: totalAmount,
+            address: address,
+            description: "Thanh toán đơn hàng OCEANS",
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.orderUrl) {
+              window.location.href = data.orderUrl;
+            } else {
+              alert(
+                "Không thể tạo đơn thanh toán ZaloPay. " +
+                  (data.message || "Vui lòng thử lại.")
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Lỗi kết nối API ZaloPay:", error);
+            alert("Đã xảy ra lỗi khi kết nối với hệ thống thanh toán.");
           });
       }
     </script>
