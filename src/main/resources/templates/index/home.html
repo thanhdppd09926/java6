@@ -26,6 +26,7 @@
         padding: 30px 0;
       }
 
+<<<<<<< HEAD
       .product {
         background: white;
         border: none;
@@ -42,6 +43,25 @@
         flex-direction: column;
         justify-content: center;
       }
+=======
+        .product {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 300px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 400px;
+        }
+>>>>>>> 85646276aeac27bf334206817d607c54cca60cfa
 
       .product:hover {
         transform: translateY(-5px);
@@ -131,12 +151,22 @@
         margin-bottom: 20px;
       }
 
+<<<<<<< HEAD
       .product-container {
         display: flex;
         overflow-x: auto;
         gap: 20px;
         padding-bottom: 15px;
       }
+=======
+        .product-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 15px;
+
+        }
+>>>>>>> 85646276aeac27bf334206817d607c54cca60cfa
 
       .product-container .product {
         flex: 0 0 260px;
@@ -179,6 +209,7 @@
     <div th:replace="~{/layouts/slide}"></div>
     <header th:replace="~{/layouts/nav}"></header>
     <main>
+<<<<<<< HEAD
       <div th:if="${keyword != null}">
         <h1 class="text-center">
           Kết quả tìm kiếm cho: <span th:text="${keyword}"></span>
@@ -212,6 +243,29 @@
                   />
                 </button>
               </div>
+=======
+        <div th:if="${keyword != null}">
+            <h1 class="text-center">Kết quả tìm kiếm cho: <span th:text="${keyword}"></span></h1>
+            <div class="row">
+                <div class="col-md-3" th:each="product : ${productsHome}">
+                    <div class="product">
+                        <a th:href="@{/product/{id}(id=${product.id})}">
+                            <img th:src="@{|/photos/${product.image}|}" alt="Sản phẩm">
+                            <h3 th:text="${product.name}"></h3>
+                            <p th:text="${product.price}"></p>
+                        </a>
+                        <div class="button-mua-car">
+                            <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
+                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA')}"
+                                onclick="prepareBuyNow(this)">Mua ngay</button>
+                            <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
+                                <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
+                                    alt="Cart Icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+>>>>>>> 85646276aeac27bf334206817d607c54cca60cfa
             </div>
           </div>
         </div>
@@ -468,7 +522,15 @@
         const normalizedPriceStr = priceStr.replace(/,/g, "");
         const price = parseFloat(normalizedPriceStr) || 0;
 
+<<<<<<< HEAD
         console.log("Price from data-price:", priceStr, "Parsed price:", price);
+=======
+            document.getElementById("buyNowProductId").value = productId;
+            document.getElementById("productName").value = productName;
+            document.getElementById("price").value = price.toFixed(0);
+            updateTotal();
+        }
+>>>>>>> 85646276aeac27bf334206817d607c54cca60cfa
 
         document.getElementById("buyNowProductId").value = productId;
         document.getElementById("productName").value = productName;
