@@ -64,7 +64,7 @@
         }
 
         .product p {
-            color: #e74c3c;
+            color: #000000;
             font-weight: 500;
             font-size: 1.1rem;
         }
@@ -249,7 +249,10 @@
                     <a th:href="@{/product/{id}(id=${product.id})}">
                         <img th:src="@{|/photos/${product.image}|}" alt="Sản phẩm">
                         <h3 th:text="${product.name}"></h3>
-                        <p th:text="${product.price}"></p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <p th:text="${product.price}" class="mb-0 me-1"></p>
+                            <span>VND</span>
+                        </div>
                     </a>
                     <div class="button-mua-car">
                         <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
@@ -275,11 +278,15 @@
                         <a th:href="@{/product/{id}(id=${product.id})}">
                             <img th:src="@{|/photos/${product.image}|}" alt="Sản phẩm">
                             <h3 th:text="${product.name}"></h3>
-                            <p th:text="${product.price}"></p>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <p th:text="${product.price}" class="mb-0 me-1"></p>
+                                <span>VND</span>
+                            </div>
+
                         </a>
                         <div class="button-mua-car">
                             <button class="button" data-bs-toggle="modal" data-bs-target="#buyNowModal"
-                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"
+                                th:attr="data-id=${product.id}, data-name=${product.name}, data-price=${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"
                                 onclick="prepareBuyNow(this)">Mua ngay</button>
                             <button class="button add-to-cart" th:data-id="${product.id}" onclick="addToCart(event)">
                                 <img src="https://img.icons8.com/material-outlined/24/ffffff/shopping-cart.png"
@@ -336,7 +343,8 @@
             const productId = button.getAttribute("data-id");
             const productName = button.getAttribute("data-name");
             const priceStr = button.getAttribute("data-price");
-            const price = parseFloat(priceStr.replace(/[^\d]/g, '')) || 0;
+            const normalizedPriceStr = priceStr.replace(/,/g, "");
+            const price = parseFloat(normalizedPriceStr) || 0;
 
             console.log("Price from data-price:", priceStr, "Parsed price:", price);
 
