@@ -40,29 +40,35 @@ public class ProductsController {
     }
 
     @PostMapping("/new")
-    public String addProduct(@ModelAttribute Products product,
-            @RequestParam("imageFile") MultipartFile imageFile) {
-        if (!imageFile.isEmpty()) {
-            try {
-                String cleanName = removeAccentsAndSpaces(product.getName());
-                String originalFilename = imageFile.getOriginalFilename();
-                @SuppressWarnings("null")
-                String extension = originalFilename.substring(originalFilename.lastIndexOf(""));
-                String newFileName = cleanName + extension;
+public String addProduct(@ModelAttribute Products product,
+        @RequestParam("imageFile") MultipartFile imageFile) {
+    if (!imageFile.isEmpty()) {
+        try {
+            // Xử lý tên file ảnh
+            String cleanName = removeAccentsAndSpaces(product.getName());
+            String originalFilename = imageFile.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String newFileName = cleanName + extension;
 
-                String imagePath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos"
-                        + newFileName;
-
-                imageFile.transferTo(new File(imagePath));
-                product.setImage(newFileName);
-            } catch (IOException e) {
-                System.out.println("LỖI: " + e.getMessage());
-                // Consider adding better error handling
+            // Tạo đường dẫn thư mục lưu ảnh
+            String folderPath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos\\";
+            File directory = new File(folderPath);
+            if (!directory.exists()) {
+                directory.mkdirs(); // tạo thư mục nếu chưa có
             }
+
+            // Lưu ảnh
+            String imagePath = folderPath + newFileName;
+            imageFile.transferTo(new File(imagePath));
+            product.setImage(newFileName);
+        } catch (IOException e) {
+            System.out.println("LỖI khi lưu ảnh: " + e.getMessage());
         }
-        productDao.save(product);
-        return "redirect:/products/admin";
     }
+
+    productDao.save(product);
+    return "redirect:/products/admin";
+}
 
     // Helper method to remove accents and spaces
     private String removeAccentsAndSpaces(String str) {
