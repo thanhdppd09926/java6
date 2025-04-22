@@ -39,7 +39,7 @@ public class AccountsController {
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
-    private static final String UPLOAD_DIR = "D:\\Java\\ass\\src\\main\\resources\\static\\photos\\";
+    private static final String UPLOAD_DIR = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\";
 
     // Hiển thị danh sách tài khoản
     @GetMapping("/admin")
@@ -106,6 +106,8 @@ public class AccountsController {
     @GetMapping("/profile")
     public String showProfile(Model model, HttpSession session) {
         Accounts user = (Accounts) session.getAttribute("user");
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         if (user == null) {
             return "redirect:/login";
         }
