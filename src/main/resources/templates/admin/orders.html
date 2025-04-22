@@ -93,6 +93,7 @@
                             <th>ID</th>
                             <th>Ngày tạo</th>
                             <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
                             <th>Khách hàng</th>
                             <th>Hành động</th>
                         </tr>
@@ -102,6 +103,7 @@
                             <td th:text="${order.id}"></td>
                             <td th:text="${order.createDate}"></td>
                             <td th:text="${order.address}"></td>
+                            <td th:text="${order.note}"></td>
                             <td th:text="${order.account.fullname}"></td>
                             <td>
                                 <a th:href="@{'/orders/admin/details/' + ${order.id}}"

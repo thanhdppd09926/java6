@@ -27,6 +27,7 @@ public class Orders {
 
     private Date createDate; // DATETIME
     private String address; // NVARCHAR(100)
+    private String note;
 
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", nullable = false) // Khóa ngoại đến bảng Accounts
