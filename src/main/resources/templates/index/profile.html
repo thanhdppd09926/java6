@@ -22,26 +22,34 @@
 
             <div th:if="${session.user != null}">
                 <div th:unless="${editMode}">
-                    <div class="profile-info-grid">
-                        <div class="profile-info">
-                            <label>Tên đăng nhập:</label>
-                            <span th:text="${account.username}"></span>
+                    <div class="profile-info-grid row">
+                        <div class="col-5">
+                            <div class="profile-info">
+                                <img th:src="@{|/photos/${account.photo}|}" alt="Product Image"
+                                    th:unless="${account.photo == null}" />
+                            </div>
                         </div>
-                        <div class="profile-info">
-                            <label>Họ tên:</label>
-                            <span th:text="${account.fullname}"></span>
-                        </div>
-                        <div class="profile-info">
-                            <label>Email:</label>
-                            <span th:text="${account.email}"></span>
-                        </div>
-                        <div class="profile-info">
-                            <label>Trạng thái:</label>
-                            <span th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"></span>
-                        </div>
-                        <div class="profile-info">
-                            <label>Quyền:</label>
-                            <span th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></span>
+                        <div class="col-7">
+                            <div class="profile-info">
+                                <label>Tên đăng nhập:</label>
+                                <span th:text="${account.username}"></span>
+                            </div>
+                            <div class="profile-info">
+                                <label>Họ tên:</label>
+                                <span th:text="${account.fullname}"></span>
+                            </div>
+                            <div class="profile-info">
+                                <label>Email:</label>
+                                <span th:text="${account.email}"></span>
+                            </div>
+                            <div class="profile-info">
+                                <label>Trạng thái:</label>
+                                <span th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"></span>
+                            </div>
+                            <div class="profile-info">
+                                <label>Quyền:</label>
+                                <span th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="btn-container">
@@ -108,7 +116,7 @@
     }
 
     .profile-container {
-        max-width: 800px;
+        max-width: 1200px;
         margin: 50px auto;
         background: white;
         padding: 40px;
@@ -136,6 +144,12 @@
         padding: 20px;
         border-radius: 8px;
         border: 1px solid #e0e0e0;
+    }
+
+    .profile-info img {
+        width: 500px;
+        border-radius: 8px;
+        margin-bottom: 15px;
     }
 
     .profile-info label {

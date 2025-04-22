@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ass.ass.dao.ProductDao;
 import ass.ass.models.Accounts;
+import ass.ass.models.Categories;
 import ass.ass.models.Products;
+import ass.ass.repository.CategoryRepository;
 import ass.ass.repository.ProductRepository;
 import ass.ass.services.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,9 @@ public class HomeController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("")
     public String getMethodName() {
@@ -43,6 +48,9 @@ public class HomeController {
         List<Products> products = productRepository.findAll();
         Collections.shuffle(products);
         model.addAttribute("productsHome", products);
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+
         Accounts user = (Accounts) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
