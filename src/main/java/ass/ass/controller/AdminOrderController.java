@@ -1,8 +1,13 @@
 package ass.ass.controller;
 
 import ass.ass.models.Accounts;
+import ass.ass.models.Categories;
 import ass.ass.models.Orders;
+import ass.ass.repository.CategoryRepository;
 import ass.ass.services.OrderService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +23,15 @@ public class AdminOrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     // Hiển thị danh sách tất cả đơn hàng
     @GetMapping
     public String viewAllOrders(Model model, HttpSession session) {
         // Kiểm tra quyền admin
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         Accounts user = (Accounts) session.getAttribute("user");
         if (user == null || !user.isAdmin()) {
             return "redirect:/login";

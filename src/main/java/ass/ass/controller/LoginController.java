@@ -1,7 +1,12 @@
 package ass.ass.controller;
 
 import ass.ass.models.Accounts;
+import ass.ass.models.Categories;
 import ass.ass.repository.AccountRepository;
+import ass.ass.repository.CategoryRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +23,9 @@ public class LoginController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -43,7 +51,9 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String loginHome() {
+    public String loginHome(Model model) {
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "index/login";
     }
 

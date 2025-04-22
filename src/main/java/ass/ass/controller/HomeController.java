@@ -35,11 +35,6 @@ public class HomeController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @GetMapping("")
-    public String getMethodName() {
-        return "index/1";
-    }
-
     @Autowired
     private ProductRepository productRepository;
 
@@ -66,7 +61,8 @@ public class HomeController {
             @RequestParam(defaultValue = "8") int size,
             Model model,
             HttpSession session) {
-
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         Pageable pageable = PageRequest.of(page, size);
         Page<Products> productPage = productRepository.findAll(pageable);
 
