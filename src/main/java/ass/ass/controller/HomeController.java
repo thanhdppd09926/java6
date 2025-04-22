@@ -56,6 +56,14 @@ public class HomeController {
         return "index/home";
     }
 
+    @GetMapping("/home/newbio")
+    public String getMethodName(Model model) {
+
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+        return "index/gioithieu";
+    }
+
     @GetMapping("/home-product")
     public String homeProduct(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int size,
