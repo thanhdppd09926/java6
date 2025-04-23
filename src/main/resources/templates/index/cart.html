@@ -138,9 +138,13 @@
         <tbody>
           <tr th:each="item : ${cartItems}">
             <td th:text="${item.product.name}"></td>
+<<<<<<< HEAD
+            <td th:text="${item.product.price}"></td>
+=======
             <td
               th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} +' VNĐ'"
             ></td>
+>>>>>>> c1e020eaa7b772251a6cbc821ff1da37e3a63b77
             <td>
               <form th:action="@{/cart/update}" method="post">
                 <input
@@ -159,7 +163,11 @@
               </form>
             </td>
             <td
+<<<<<<< HEAD
+              th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+=======
               th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
+>>>>>>> c1e020eaa7b772251a6cbc821ff1da37e3a63b77
             ></td>
             <td class="actions">
               <form
@@ -179,7 +187,11 @@
       <p style="text-align: left; font-size: 1.2rem; margin-top: 10px">
         <strong>Tổng cộng:</strong>
         <span
+<<<<<<< HEAD
+          th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+=======
           th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
+>>>>>>> c1e020eaa7b772251a6cbc821ff1da37e3a63b77
         ></span>
       </p>
       <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
@@ -243,12 +255,19 @@
                 <tbody>
                   <tr th:each="item : ${cartItems}">
                     <td th:text="${item.product.name}"></td>
+<<<<<<< HEAD
+                    <td th:text="${item.product.price}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td
+                      th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+=======
                     <td
                       th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} +' VNĐ'"
                     ></td>
                     <td th:text="${item.quantity}"></td>
                     <td
                       th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
+>>>>>>> c1e020eaa7b772251a6cbc821ff1da37e3a63b77
                     ></td>
                   </tr>
                 </tbody>
@@ -256,7 +275,11 @@
               <p style="text-align: left; font-size: 1.2rem; margin-top: 10px">
                 <strong>Tổng cộng:</strong>
                 <span
+<<<<<<< HEAD
+                  th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+=======
                   th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
+>>>>>>> c1e020eaa7b772251a6cbc821ff1da37e3a63b77
                 ></span>
               </p>
               <div class="mb-3">
