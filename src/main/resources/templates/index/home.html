@@ -305,11 +305,16 @@
               <div class="d-flex justify-content-center align-items-center">
                 <div>
                   <div style="display: flex">
-                    <p th:text="${product.price}" class="mb-0 me-1"></p>
+                    <p
+                      th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"
+                      class="mb-0 me-1"
+                    ></p>
                     <p style="color: #e74c3c">VNĐ</p>
                   </div>
                   <div class="old-price" style="display: flex">
-                    <p th:text="${product.price * 1.2}"></p>
+                    <p
+                      th:text="${#numbers.formatDecimal(product.price * 1.2, 0, 'COMMA', 0, 'POINT')}"
+                    ></p>
                     <p>VNĐ</p>
                   </div>
                 </div>
@@ -356,8 +361,11 @@
                 <img th:src="@{|/photos/${product.image}|}" alt="Sản phẩm" />
                 <h3 th:text="${product.name}"></h3>
                 <div class="d-flex justify-content-center align-items-center">
-                  <p th:text="${product.price}" class="mb-0 me-1"></p>
-                  <span>VNĐa</span>
+                  <p
+                    th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"
+                    class="mb-0 me-1"
+                  ></p>
+                  <span>VNĐ</span>
                 </div>
               </a>
               <div class="button-mua-car">
