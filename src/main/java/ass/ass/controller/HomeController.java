@@ -115,6 +115,8 @@ public class HomeController {
         // Tìm kiếm sản phẩm theo tên (hoặc các tiêu chí khác nếu cần)
         List<Products> searchResults = productDao.findByNameContainingIgnoreCase(keyword); // Cần thêm phương thức này
                                                                                            // trong
+        List<Categories> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         // ProductDao
         model.addAttribute("productsHome", searchResults);
         model.addAttribute("keyword", keyword); // Để hiển thị từ khóa trên giao diện nếu cần
