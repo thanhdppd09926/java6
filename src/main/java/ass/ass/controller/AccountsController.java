@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +40,7 @@ public class AccountsController {
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
-    private static final String UPLOAD_DIR = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\";
+    private static final String UPLOAD_DIR = "D:\\Java\\ass\\src\\main\\resources\\static\\photos\\";
 
     // Hiển thị danh sách tài khoản
     @GetMapping("/admin")
@@ -62,11 +63,19 @@ public class AccountsController {
     @PostMapping("/admin")
     public String addAccount(@ModelAttribute Accounts account, @RequestParam("imageFile") MultipartFile imageFile,
             Model model) throws IOException {
+        if (!imageFile.isEmpty()) {
+            String username = account.getUsername();
+            String fileName = username + ".jpg"; // Hoặc .png nếu cần
+            Path path = Paths.get(UPLOAD_DIR + fileName);
+            Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            account.setPhoto(fileName); // Lưu tên file
+        }
+
         if (accountDao.existsById(account.getUsername())) {
             model.addAttribute("error", "Tên đăng nhập đã tồn tại!");
             return "admin/accounts";
         }
-        saveImage(account, imageFile);
+
         accountDao.save(account);
         return "redirect:/accounts/admin";
     }
