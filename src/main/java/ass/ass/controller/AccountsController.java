@@ -136,8 +136,8 @@ public class AccountsController {
             @RequestParam String fullname,
             @RequestParam String email,
             @RequestParam(required = false) MultipartFile imageFile,
-            @RequestParam boolean activated,
-            @RequestParam boolean admin,
+            // @RequestParam boolean activated,
+            // @RequestParam boolean admin,
             HttpSession session) throws IOException {
         Accounts account = accountDao.findById(username).orElse(null);
         if (account != null) {
@@ -150,8 +150,8 @@ public class AccountsController {
                 account.setPassword(password); // Nên mã hóa mật khẩu nếu cần
             }
             saveImage(account, imageFile);
-            account.setActivated(activated);
-            account.setAdmin(admin);
+            // account.setActivated(activated);
+            // account.setAdmin(admin);
 
             accountDao.save(account);
 
