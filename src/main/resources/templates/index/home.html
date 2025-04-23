@@ -490,19 +490,17 @@
     <div th:replace="~{/layouts/footer}"></div>
     <script>
       function prepareBuyNow(button) {
-        // Kiểm tra nếu người dùng chưa đăng nhập
-        const username = document.getElementById("buyNowUsername").value;
-        if (!username) {
+        const username = document.getElementById("buyNowUsername")?.value;
+        if (!username || username.trim() === "") {
           alert("Bạn cần đăng nhập để mua hàng!");
-          window.location.href = "/login"; // Điều hướng người dùng đến trang đăng nhập
+          window.location.href = "/login";
           return;
         }
 
         const productId = button.getAttribute("data-id");
         const productName = button.getAttribute("data-name");
-        const priceStr = button.getAttribute("data-price");
-        const normalizedPriceStr = priceStr.replace(/,/g, "");
-        const price = parseFloat(normalizedPriceStr) || 0;
+        const priceStr = button.getAttribute("data-price").replace(/,/g, "");
+        const price = parseFloat(priceStr) || 0;
 
         document.getElementById("buyNowProductId").value = productId;
         document.getElementById("productName").value = productName;
@@ -513,25 +511,28 @@
       function addToCart(event) {
         event.preventDefault();
 
-        // Kiểm tra nếu người dùng chưa đăng nhập
-        const username = ""; // Đây là username trong session hoặc cookie
-        if (!username) {
+        const username = document.getElementById("buyNowUsername")?.value;
+        if (!username || username.trim() === "") {
           alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
-          window.location.href = "/login"; // Điều hướng người dùng đến trang đăng nhập
+          window.location.href = "/login";
           return;
         }
 
         const button = event.currentTarget;
         const productId = button.getAttribute("data-id");
         const quantity =
-          parseInt(document.getElementById("quantity").value) || 1;
+          parseInt(document.getElementById("quantity")?.value) || 1;
 
         fetch("/cart/add", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: `username=${username}&productId=${productId}&quantity=${quantity}`,
+          body: `username=${encodeURIComponent(
+            username
+          )}&productId=${encodeURIComponent(
+            productId
+          )}&quantity=${encodeURIComponent(quantity)}`,
           credentials: "include",
         })
           .then((response) => {
