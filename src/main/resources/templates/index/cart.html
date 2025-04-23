@@ -1,248 +1,310 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>OCEANS - Giỏ hàng</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <title>OCEANS - Giỏ hàng</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f9f9f9;
+        color: #333;
+      }
 
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background: #f9f9f9;
-      color: #333;
-    }
+      main {
+        width: 90%;
+        margin: 20px auto;
+      }
 
-    main {
-      width: 90%;
-      margin: 20px auto;
-    }
+      h1 {
+        text-align: center;
+        background-image: radial-gradient(
+          circle at top right,
+          #c9c8c8,
+          rgb(129, 47, 47),
+          #e52e71
+        );
+        color: #ffffff;
+        font-style: oblique;
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+      }
 
-    h1 {
-      text-align: center;
-      background-image: radial-gradient(circle at top right, #c9c8c8, rgb(129, 47, 47), #e52e71);
-      color: #ffffff;
-      font-style: oblique;
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 1rem;
+      }
 
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-      font-size: 1rem;
-    }
+      th {
+        background-color: #f2f2f2;
+        color: #e74c3c;
+      }
 
-    th {
-      background-color: #f2f2f2;
-      color: #e74c3c;
-    }
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
 
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
+      .btn {
+        background: #242e8d71;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
 
-    .btn {
-      background: #242e8d71;
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+      .btn:hover {
+        background: #645756;
+        color: white;
+      }
 
-    .btn:hover {
-      background: #645756;
-      color: white;
-    }
+      .checkout-btn {
+        background: #e74c3c;
+        margin: 10px;
+      }
 
-    .checkout-btn {
-      background: #e74c3c;
-      margin: 10px;
-    }
+      .checkout-btn:hover {
+        background: #665c5b;
+      }
 
-    .checkout-btn:hover {
-      background: #665c5b;
-    }
+      .checkout-section {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-    .checkout-section {
-      text-align: center;
-      margin-top: 20px;
-    }
+      .checkout-section input {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
 
-    .checkout-section input {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
+      .continue-shopping {
+        display: block;
+        text-align: center;
+        margin: 20px auto;
+        font-size: 1rem;
+      }
 
-    .continue-shopping {
-      display: block;
-      text-align: center;
-      margin: 20px auto;
-      font-size: 1rem;
-    }
+      .update-btn {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+      }
 
-    .update-btn {
-      font-size: 0.9rem;
-      padding: 5px 10px;
-    }
+      .quantity-input {
+        width: 60px;
+        padding: 5px;
+        font-size: 0.9rem;
+        margin-right: 10px;
+      }
 
-    .quantity-input {
-      width: 60px;
-      padding: 5px;
-      font-size: 0.9rem;
-      margin-right: 10px;
-    }
+      .actions {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    </style>
+  </head>
 
-    .actions {
-      display: flex;
-      justify-content: space-evenly;
-    }
-  </style>
-</head>
+  <body>
+    <header th:replace="~{/layouts/nav}"></header>
+    <main>
+      <h1>GIỎ HÀNG CỦA BẠN</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="item : ${cartItems}">
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td>
+              <form th:action="@{/cart/update}" method="post">
+                <input
+                  type="hidden"
+                  name="productId"
+                  th:value="${item.product.id}"
+                />
+                <input
+                  type="number"
+                  name="quantity"
+                  th:value="${item.quantity}"
+                  min="1"
+                  class="quantity-input"
+                />
+                <button type="submit" class="btn update-btn">Cập nhật</button>
+              </form>
+            </td>
+            <td
+              th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+            ></td>
+            <td class="actions">
+              <form
+                th:action="@{/cart/remove/{id}(id=${item.id})}"
+                method="post"
+                onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');"
+              >
+                <button type="submit" class="btn">Xóa</button>
+              </form>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(cartItems)}">
+            <td colspan="5">Giỏ hàng trống!</td>
+          </tr>
+        </tbody>
+      </table>
 
-<body>
-  <header th:replace="~{/layouts/nav}"></header>
-  <main>
-    <h1>GIỎ HÀNG CỦA BẠN</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Tên sản phẩm</th>
-          <th>Giá</th>
-          <th>Số lượng</th>
-          <th>Tổng</th>
-          <th>Hành động</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="item : ${cartItems}">
-          <td th:text="${item.product.name}"></td>
-          <td th:text="${item.product.price}"></td>
-          <td>
-            <form th:action="@{/cart/update}" method="post">
-              <input type="hidden" name="productId" th:value="${item.product.id}" />
-              <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="quantity-input" />
-              <button type="submit" class="btn update-btn">Cập nhật</button>
-            </form>
-          </td>
-          <td
-            th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'">
-          </td>
-          <td class="actions">
-            <form th:action="@{/cart/remove/{id}(id=${item.id})}" method="post"
-              onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
-              <button type="submit" class="btn">Xóa</button>
-            </form>
-          </td>
-        </tr>
-        <tr th:if="${#lists.isEmpty(cartItems)}">
-          <td colspan="5">Giỏ hàng trống!</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
-      <!-- <form id="checkoutForm" th:action="@{/cart/checkout}" method="post" onsubmit="return processCheckout()">
+      <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
+        <!-- <form id="checkoutForm" th:action="@{/cart/checkout}" method="post" onsubmit="return processCheckout()">
         <label for="address">Địa chỉ giao hàng:</label>
         <input type="text" id="address" name="address" required /> -->
 
-      <!-- Nút thanh toán thường -->
-      <!-- <button type="submit" class="btn checkout-btn">Thanh toán</button>
+        <!-- Nút thanh toán thường -->
+        <!-- <button type="submit" class="btn checkout-btn">Thanh toán</button>
 
           !-- Nút thanh toán ZaloPay -->
-      <!-- <button
+        <!-- <button
             type="button"
             class="btn checkout-btn"
             onclick="payWithZaloPay()"
           >
             Thanh toán qua ZaloPay
           </button>  -->
-      <!-- Nút thanh toán duy nhất -->
-      <button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal" style="background: #242e8d71;
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;">
-        Thanh toán đơn hàng
-      </button>
-      <!-- </form> -->
-    </div>
-    <!-- Modal hiển thị danh sách sản phẩm trong giỏ hàng -->
-    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="checkoutModalLabel">
-              Thông tin đơn hàng
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Tên sản phẩm</th>
-                  <th>Giá</th>
-                  <th>Số lượng</th>
-                  <th>Tổng</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="item : ${cartItems}">
-                  <td th:text="${item.product.name}"></td>
-                  <td th:text="${item.product.price}"></td>
-                  <td th:text="${item.quantity}"></td>
-                  <td
-                    th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="mb-3">
-              <label for="address">Địa chỉ giao hàng:</label>
-              <input type="text" id="address" name="address" required class="form-control" />
-              <div id="addressError" class="form-text text-danger"></div>
+        <!-- Nút thanh toán duy nhất -->
+        <button
+          type="button"
+          class="btn checkout-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#checkoutModal"
+          style="
+            background: #242e8d71;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          "
+        >
+          Thanh toán đơn hàng
+        </button>
+        <!-- </form> -->
+      </div>
+      <!-- Modal hiển thị danh sách sản phẩm trong giỏ hàng -->
+      <div
+        class="modal fade"
+        id="checkoutModal"
+        tabindex="-1"
+        aria-labelledby="checkoutModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="checkoutModalLabel">
+                Thông tin đơn hàng
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="item : ${cartItems}">
+                    <td th:text="${item.product.name}"></td>
+                    <td th:text="${item.product.price}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td
+                      th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+                    ></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="mb-3">
+                <label for="address">Địa chỉ giao hàng:</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  required
+                  class="form-control"
+                />
+                <div id="addressError" class="form-text text-danger"></div>
+              </div>
 
-            <div class="mb-3">
-              <label for="note">Số điện thoại:</label>
-              <input type="text" id="note" name="note" required class="form-control" />
-              <div id="phoneError" class="form-text text-danger"></div>
+              <div class="mb-3">
+                <label for="note">Số điện thoại:</label>
+                <input
+                  type="text"
+                  id="note"
+                  name="note"
+                  required
+                  class="form-control"
+                />
+                <div id="phoneError" class="form-text text-danger"></div>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Đóng
-            </button>
-            <button type="button" class="btn checkout-btn" onclick="processUnifiedCheckout()">
-              Xác nhận thanh toán
-            </button>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Đóng
+              </button>
+              <button
+                type="button"
+                class="btn checkout-btn"
+                onclick="processUnifiedCheckout()"
+              >
+                Xác nhận thanh toán
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
-  </main>
+      <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
+    </main>
 
-  <!-- <script th:inline="javascript">
+    <!-- <script th:inline="javascript">
       const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0); // làm tròn số tiền // Tổng số tiền giỏ hàng được chèn từ controller
       function processCheckout() {
         const address = document.getElementById("address").value.trim();
@@ -299,89 +361,88 @@
           });
       }
     </script> -->
-  <script th:inline="javascript">
-    const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0);
-    function processUnifiedCheckout() {
-      const addressInput = document.getElementById("address");
-      const phoneInput = document.getElementById("note");
+    <script th:inline="javascript">
+      const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0);
+      function processUnifiedCheckout() {
+        const addressInput = document.getElementById("address");
+        const phoneInput = document.getElementById("note");
 
-      const address = addressInput.value.trim();
-      const phone = phoneInput.value.trim();
+        const address = addressInput.value.trim();
+        const phone = phoneInput.value.trim();
 
-      const addressError = document.getElementById("addressError");
-      const phoneError = document.getElementById("phoneError");
+        const addressError = document.getElementById("addressError");
+        const phoneError = document.getElementById("phoneError");
 
-      // Reset lỗi cũ
-      addressError.textContent = "";
-      phoneError.textContent = "";
-      addressInput.classList.remove("is-invalid");
-      phoneInput.classList.remove("is-invalid");
+        // Reset lỗi cũ
+        addressError.textContent = "";
+        phoneError.textContent = "";
+        addressInput.classList.remove("is-invalid");
+        phoneInput.classList.remove("is-invalid");
 
-      let isValid = true;
-      let firstInvalidInput = null;
+        let isValid = true;
+        let firstInvalidInput = null;
 
-      // Validate địa chỉ
-      if (!address || address.length < 5) {
-        addressError.textContent = "Địa chỉ phải có ít nhất 5 ký tự.";
-        addressInput.classList.add("is-invalid");
-        isValid = false;
-        firstInvalidInput = addressInput;
-      }
+        // Validate địa chỉ
+        if (!address || address.length < 5) {
+          addressError.textContent = "Địa chỉ phải có ít nhất 5 ký tự.";
+          addressInput.classList.add("is-invalid");
+          isValid = false;
+          firstInvalidInput = addressInput;
+        }
 
-      // Validate số điện thoại
-      const phoneRegex =
-        /^(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-5|8]|09[0-9])\d{7}$/;
-      if (!phoneRegex.test(phone)) {
-        phoneError.textContent =
-          "Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.";
-        phoneInput.classList.add("is-invalid");
-        isValid = false;
-        if (!firstInvalidInput) firstInvalidInput = phoneInput;
-      }
+        // Validate số điện thoại
+        const phoneRegex =
+          /^(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-5|8]|09[0-9])\d{7}$/;
+        if (!phoneRegex.test(phone)) {
+          phoneError.textContent =
+            "Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.";
+          phoneInput.classList.add("is-invalid");
+          isValid = false;
+          if (!firstInvalidInput) firstInvalidInput = phoneInput;
+        }
 
-      if (!isValid) {
-        // Cuộn đến ô lỗi đầu tiên và focus vào nó
-        firstInvalidInput.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        setTimeout(() => firstInvalidInput.focus(), 300);
-        return;
-      }
+        if (!isValid) {
+          // Cuộn đến ô lỗi đầu tiên và focus vào nó
+          firstInvalidInput.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          setTimeout(() => firstInvalidInput.focus(), 300);
+          return;
+        }
 
-      if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
-        alert("Số tiền thanh toán không hợp lệ!");
-        return;
-      }
+        if (!totalAmount || isNaN(totalAmount) || totalAmount <= 0) {
+          alert("Số tiền thanh toán không hợp lệ!");
+          return;
+        }
 
-      // Gửi yêu cầu thanh toán ZaloPay
-      fetch("/api/zalopay", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: totalAmount,
-          address: address,
-          phone: phone,
-          description: "Thanh toán đơn hàng OCEANS",
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.orderUrl) {
-            window.location.href = data.orderUrl;
-          } else {
-            alert(
-              "Không thể tạo đơn thanh toán ZaloPay. " +
-              (data.message || "Vui lòng thử lại.")
-            );
-          }
+        // Gửi yêu cầu thanh toán ZaloPay
+        fetch("/api/zalopay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: totalAmount,
+            address: address,
+            phone: phone,
+            description: "Thanh toán đơn hàng OCEANS",
+          }),
         })
-        .catch((error) => {
-          console.error("Lỗi kết nối API ZaloPay:", error);
-          alert("Đã xảy ra lỗi khi kết nối với hệ thống thanh toán.");
-        });
-    }
-  </script>
-</body>
-
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.orderUrl) {
+              window.location.href = data.orderUrl;
+            } else {
+              alert(
+                "Không thể tạo đơn thanh toán ZaloPay. " +
+                  (data.message || "Vui lòng thử lại.")
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Lỗi kết nối API ZaloPay:", error);
+            alert("Đã xảy ra lỗi khi kết nối với hệ thống thanh toán.");
+          });
+      }
+    </script>
+  </body>
 </html>
