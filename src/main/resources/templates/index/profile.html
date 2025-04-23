@@ -12,7 +12,9 @@
     <header th:replace="~{/layouts/nav}"></header>
     <main>
         <div class="profile-container">
-            <h1 class="profile-title">Hồ sơ cá nhân</h1>
+            <h1 class="profile-title" style="color: rgb(12, 12, 12) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;">Hồ sơ cá nhân</h1>
 
             <div th:if="${session.user == null}">
                 <div class="alert alert-warning">
@@ -22,40 +24,45 @@
 
             <div th:if="${session.user != null}">
                 <div th:unless="${editMode}">
-                    <div class="profile-info-grid row">
-                        <div class="col-5">
-                            <div class="profile-info">
-                                <img th:src="@{|/photos/${account.photo}|}" alt="Product Image"
-                                    th:unless="${account.photo == null}" />
+                    <div class="row">
+                        <div class="profile-info col-8" style="border-radius: 20px; display: flex;">
+                            <img th:src="@{|/photos/${account.photo}|}" alt="Product Image"
+                                style="width: 300px; height: 380px; border-radius: 20px;"
+                                th:unless="${account.photo == null}" />
+
+                            <div style="margin-left: 30px;">
+                                <div class="profile-info">
+                                    <label>Tên đăng nhập:</label>
+                                    <span th:text="${account.username}"></span>
+                                </div>
+                                <div class="profile-info">
+                                    <label>Họ tên:</label>
+                                    <span th:text="${account.fullname}"></span>
+                                </div>
+                                <div class="profile-info">
+                                    <label>Email:</label>
+                                    <span th:text="${account.email}"></span>
+                                </div>
+                                <div class="profile-info">
+                                    <label>Trạng thái:</label>
+                                    <span th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"></span>
+                                </div>
+                                <div class="profile-info">
+                                    <label>Quyền:</label>
+                                    <span th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-7">
-                            <div class="profile-info">
-                                <label>Tên đăng nhập:</label>
-                                <span th:text="${account.username}"></span>
+                        <div class="btn-container col-4" style="padding: 40px;">
+                            <div style="padding: 40px;">
+                                <a href="/accounts/edit" class="btn btn-edit">Chỉnh sửa</a>
                             </div>
-                            <div class="profile-info">
-                                <label>Họ tên:</label>
-                                <span th:text="${account.fullname}"></span>
-                            </div>
-                            <div class="profile-info">
-                                <label>Email:</label>
-                                <span th:text="${account.email}"></span>
-                            </div>
-                            <div class="profile-info">
-                                <label>Trạng thái:</label>
-                                <span th:text="${account.activated ? 'Đã kích hoạt' : 'Chưa kích hoạt'}"></span>
-                            </div>
-                            <div class="profile-info">
-                                <label>Quyền:</label>
-                                <span th:text="${account.admin ? 'Quản trị viên' : 'Người dùng'}"></span>
+                            <div>
+                                <a href="/logout" class="btn btn-logout">Đăng xuất</a>
                             </div>
                         </div>
                     </div>
-                    <div class="btn-container">
-                        <a href="/accounts/edit" class="btn btn-edit">Chỉnh sửa</a>
-                        <a href="/logout" class="btn btn-logout">Đăng xuất</a>
-                    </div>
+
                 </div>
 
                 <div th:if="${editMode}">
@@ -145,16 +152,9 @@
 
     .profile-info {
         background: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
+        padding: 10px;
     }
 
-    .profile-info img {
-        width: 500px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-    }
 
     .profile-info label {
         display: block;
@@ -180,11 +180,11 @@
         margin: 0 10px;
         border: none;
         cursor: pointer;
-        color: white;
+        color: rgb(221, 221, 221);
     }
 
     .btn-edit {
-        background: #3498db;
+        background-image: linear-gradient(40deg, rgb(255 0 0) 60%, orange);
     }
 
     .btn-edit:hover {
@@ -193,7 +193,7 @@
     }
 
     .btn-logout {
-        background: #e74c3c;
+        background-image: linear-gradient(40deg, rgb(0, 60, 255) 60%, orange);
     }
 
     .btn-logout:hover {
