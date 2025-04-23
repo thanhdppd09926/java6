@@ -138,7 +138,9 @@
         <tbody>
           <tr th:each="item : ${cartItems}">
             <td th:text="${item.product.name}"></td>
-            <td th:text="${item.product.price}"></td>
+            <td
+              th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} +' VNĐ'"
+            ></td>
             <td>
               <form th:action="@{/cart/update}" method="post">
                 <input
@@ -157,7 +159,7 @@
               </form>
             </td>
             <td
-              th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+              th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
             ></td>
             <td class="actions">
               <form
@@ -241,10 +243,12 @@
                 <tbody>
                   <tr th:each="item : ${cartItems}">
                     <td th:text="${item.product.name}"></td>
-                    <td th:text="${item.product.price}"></td>
+                    <td
+                      th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')} +' VNĐ'"
+                    ></td>
                     <td th:text="${item.quantity}"></td>
                     <td
-                      th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+                      th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"
                     ></td>
                   </tr>
                 </tbody>
