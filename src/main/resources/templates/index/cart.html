@@ -83,6 +83,7 @@
         margin: 10px;
       }
 
+<<<<<<< HEAD
       .checkout-btn:hover {
         background: #665c5b;
       }
@@ -91,6 +92,11 @@
         text-align: center;
         margin-top: 20px;
       }
+=======
+    .checkout-btn {
+      display: flex;
+    }
+>>>>>>> 75f8068341637561eb19c638f975e1e25e723b79
 
       .checkout-section input {
         width: 80%;
@@ -180,8 +186,57 @@
         </tbody>
       </table>
 
+<<<<<<< HEAD
       <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
         <!-- <form id="checkoutForm" th:action="@{/cart/checkout}" method="post" onsubmit="return processCheckout()">
+=======
+<body>
+  <header th:replace="~{/layouts/nav}"></header>
+  <main>
+    <h1>GIỎ HÀNG CỦA BẠN</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Tổng</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${cartItems}">
+          <td th:text="${item.product.name}"></td>
+          <td th:text="${item.product.price}"></td>
+          <td>
+            <form th:action="@{/cart/update}" method="post">
+              <input type="hidden" name="productId" th:value="${item.product.id}" />
+              <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="quantity-input" />
+              <button type="submit" class="btn update-btn">Cập nhật</button>
+            </form>
+          </td>
+          <td
+            th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'">
+          </td>
+          <td class="actions">
+            <form th:action="@{/cart/remove/{id}(id=${item.id})}" method="post"
+              onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+              <button type="submit" class="btn">Xóa</button>
+            </form>
+          </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(cartItems)}">
+          <td colspan="5">Giỏ hàng trống!</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="text-align: left; font-size: 1.2rem; margin-top: 10px;">
+      <strong>Tổng cộng:</strong>
+      <span th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+    </p>
+    <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
+      <!-- <form id="checkoutForm" th:action="@{/cart/checkout}" method="post" onsubmit="return processCheckout()">
+>>>>>>> 75f8068341637561eb19c638f975e1e25e723b79
         <label for="address">Địa chỉ giao hàng:</label>
         <input type="text" id="address" name="address" required /> -->
 
@@ -196,6 +251,7 @@
           >
             Thanh toán qua ZaloPay
           </button>  -->
+<<<<<<< HEAD
         <!-- Nút thanh toán duy nhất -->
         <button
           type="button"
@@ -236,6 +292,53 @@
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
+=======
+      <!-- Nút thanh toán duy nhất -->
+      <button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+        Thanh toán đơn hàng
+      </button>
+      <!-- </form> -->
+    </div>
+    <!-- Modal hiển thị danh sách sản phẩm trong giỏ hàng -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutModalLabel">
+              Thông tin đơn hàng
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
+                  <th>Tổng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="item : ${cartItems}">
+                  <td th:text="${item.product.name}"></td>
+                  <td th:text="${item.product.price}"></td>
+                  <td th:text="${item.quantity}"></td>
+                  <td
+                    th:text="${#numbers.formatDecimal(item.product.price.doubleValue() * item.quantity, 0, 'COMMA', 0, 'POINT')} + ' đ'">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="text-align: left; font-size: 1.2rem; margin-top: 10px;">
+              <strong>Tổng cộng:</strong>
+              <span th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+            </p>
+            <div class="mb-3">
+              <label for="address">Địa chỉ giao hàng:</label>
+              <input type="text" id="address" name="address" required class="form-control" />
+              <div id="addressError" class="form-text text-danger"></div>
+>>>>>>> 75f8068341637561eb19c638f975e1e25e723b79
             </div>
             <div class="modal-body">
               <table class="table">
@@ -301,10 +404,18 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
     </main>
 
     <!-- <script th:inline="javascript">
+=======
+    </div>
+    <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
+  </main>
+  <footer th:replace="~{/layouts/footer}"></footer>
+  <!-- <script th:inline="javascript">
+>>>>>>> 75f8068341637561eb19c638f975e1e25e723b79
       const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0); // làm tròn số tiền // Tổng số tiền giỏ hàng được chèn từ controller
       function processCheckout() {
         const address = document.getElementById("address").value.trim();
