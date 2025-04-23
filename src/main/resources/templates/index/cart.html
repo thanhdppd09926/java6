@@ -69,12 +69,7 @@
     }
 
     .checkout-btn {
-      background: #e74c3c;
-      margin: 10px;
-    }
-
-    .checkout-btn:hover {
-      background: #665c5b;
+      display: flex;
     }
 
     .checkout-section {
@@ -156,7 +151,10 @@
         </tr>
       </tbody>
     </table>
-
+    <p style="text-align: left; font-size: 1.2rem; margin-top: 10px;">
+      <strong>Tổng cộng:</strong>
+      <span th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+    </p>
     <div th:if="${not #lists.isEmpty(cartItems)}" class="checkout-section">
       <!-- <form id="checkoutForm" th:action="@{/cart/checkout}" method="post" onsubmit="return processCheckout()">
         <label for="address">Địa chỉ giao hàng:</label>
@@ -174,13 +172,7 @@
             Thanh toán qua ZaloPay
           </button>  -->
       <!-- Nút thanh toán duy nhất -->
-      <button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal" style="background: #242e8d71;
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;">
+      <button type="button" class="btn checkout-btn" data-bs-toggle="modal" data-bs-target="#checkoutModal">
         Thanh toán đơn hàng
       </button>
       <!-- </form> -->
@@ -216,6 +208,10 @@
                 </tr>
               </tbody>
             </table>
+            <p style="text-align: left; font-size: 1.2rem; margin-top: 10px;">
+              <strong>Tổng cộng:</strong>
+              <span th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+            </p>
             <div class="mb-3">
               <label for="address">Địa chỉ giao hàng:</label>
               <input type="text" id="address" name="address" required class="form-control" />
@@ -241,7 +237,7 @@
     </div>
     <a th:href="@{/home}" class="btn continue-shopping">Tiếp tục mua sắm</a>
   </main>
-
+  <footer th:replace="~{/layouts/footer}"></footer>
   <!-- <script th:inline="javascript">
       const totalAmount = Math.round(/*[[${totalAmount}]]*/ 0); // làm tròn số tiền // Tổng số tiền giỏ hàng được chèn từ controller
       function processCheckout() {

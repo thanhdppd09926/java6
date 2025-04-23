@@ -21,11 +21,12 @@
         }
 
         h1 {
-            text-align: center;
+            margin-top: 20px;
+            margin-left: 175px;
             color: #e74c3c;
             /* đỏ */
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
         .table {
@@ -55,6 +56,10 @@
             border: none;
             border-radius: 25px;
             padding: 10px 20px;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
         }
 
         .btn-warning {
@@ -131,7 +136,8 @@
                                     th:data-fullname="${account.fullname}" th:data-email="${account.email}"
                                     th:data-activated="${account.activated}"
                                     th:data-admin="${account.admin}">Sửa</button>
-                                <form method="post" th:action="@{/accounts/admin/delete}" style="display:inline;">
+                                <form method="post" th:action="@{/accounts/admin/delete}" style="display:inline;"
+                                    onsubmit="return confirmDelete();">
                                     <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                                     <input type="hidden" name="username" th:value="${account.username}" />
                                 </form>
@@ -258,6 +264,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function confirmDelete() {
+            return confirm("Bạn có chắc chắn muốn xóa tài khoản này?");
+        }
         $('#editAccountModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var username = button.data('username');
