@@ -69,6 +69,12 @@
             font-size: 1.1rem;
         }
 
+        .old-price {
+            text-decoration: line-through;
+            color: gray;
+            font-size: 1rem;
+        }
+
         .button-mua-car {
             position: absolute;
             top: 50%;
@@ -250,8 +256,17 @@
                         <img th:src="@{|/photos/${product.image}|}" alt="Sản phẩm">
                         <h3 th:text="${product.name}"></h3>
                         <div class="d-flex justify-content-center align-items-center">
-                            <p th:text="${product.price}" class="mb-0 me-1"></p>
-                            <span>VND</span>
+                            <div>
+                                <div style="display: flex;">
+                                    <p th:text="${product.price}" class="mb-0 me-1"></p>
+                                    <p style="color: #e74c3c;">VND</p>
+                                </div>
+                                <div class="old-price" style="display: flex;">
+                                    <p th:text="${product.price * 1.2}">
+                                    </p>
+                                    <p>VDN</p>
+                                </div>
+                            </div>
                         </div>
                     </a>
                     <div class="button-mua-car">
