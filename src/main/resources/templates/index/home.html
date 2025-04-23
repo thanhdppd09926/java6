@@ -309,13 +309,14 @@
                       th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"
                       class="mb-0 me-1"
                     ></p>
-                    <p style="color: #e74c3c">VNĐ</p>
+                    <p>VNĐ</p>
                   </div>
                   <div class="old-price" style="display: flex">
                     <p
+                      style="color: #e74c3c"
                       th:text="${#numbers.formatDecimal(product.price * 1.2, 0, 'COMMA', 0, 'POINT')}"
                     ></p>
-                    <p>VNĐ</p>
+                    <p style="color: #e74c3c">VNĐ</p>
                   </div>
                 </div>
               </div>
@@ -489,13 +490,19 @@
     <div th:replace="~{/layouts/footer}"></div>
     <script>
       function prepareBuyNow(button) {
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        const username = document.getElementById("buyNowUsername").value;
+        if (!username) {
+          alert("Bạn cần đăng nhập để mua hàng!");
+          window.location.href = "/login"; // Điều hướng người dùng đến trang đăng nhập
+          return;
+        }
+
         const productId = button.getAttribute("data-id");
         const productName = button.getAttribute("data-name");
         const priceStr = button.getAttribute("data-price");
         const normalizedPriceStr = priceStr.replace(/,/g, "");
         const price = parseFloat(normalizedPriceStr) || 0;
-
-        console.log("Price from data-price:", priceStr, "Parsed price:", price);
 
         document.getElementById("buyNowProductId").value = productId;
         document.getElementById("productName").value = productName;
@@ -503,38 +510,21 @@
         updateTotal();
       }
 
-      function updateTotal() {
-        const priceStr = document.getElementById("price").value;
-        const price = parseFloat(priceStr.replace(/[^\d]/g, "")) || 0;
-        const quantity =
-          parseInt(document.getElementById("quantity").value) || 1;
-        const total = price * quantity;
-
-        console.log(
-          "Price Str:",
-          priceStr,
-          "Price:",
-          price,
-          "Quantity:",
-          quantity,
-          "Total:",
-          total
-        );
-        document.getElementById("total").value = total.toLocaleString("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        });
-      }
-
       function addToCart(event) {
         event.preventDefault();
+
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        const username = ""; // Đây là username trong session hoặc cookie
+        if (!username) {
+          alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+          window.location.href = "/login"; // Điều hướng người dùng đến trang đăng nhập
+          return;
+        }
+
         const button = event.currentTarget;
         const productId = button.getAttribute("data-id");
         const quantity =
-          parseInt(document.getElementById("quantity").value) || 1; // Lấy số lượng từ input
-
-        // Bỏ qua kiểm tra username, cho phép thêm sản phẩm mà không cần đăng nhập
-        const username = ""; // Không cần lấy username từ session nữa
+          parseInt(document.getElementById("quantity").value) || 1;
 
         fetch("/cart/add", {
           method: "POST",
@@ -556,13 +546,6 @@
             alert("Không thể thêm sản phẩm vào giỏ hàng!");
           });
       }
-
-      // Hàm xử lý khi thay đổi số lượng sản phẩm
-      document
-        .querySelector("#quantity")
-        .addEventListener("input", function () {
-          updateTotal(); // Cập nhật lại giá khi thay đổi số lượng
-        });
     </script>
   </body>
 </html>
