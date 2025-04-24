@@ -384,6 +384,13 @@
       document.getElementById("price").value = price.toFixed(0);
       updateTotal();
     }
+    function updateTotal() {
+      const price = parseFloat(document.getElementById("price").value) || 0;
+      const quantity = parseInt(document.getElementById("quantity").value) || 1;
+      const total = price * quantity;
+
+      document.getElementById("total").value = total.toFixed(0);
+    }
 
     function addToCart(event) {
       event.preventDefault();

@@ -14,7 +14,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Danh Mục
+                    DANH MỤC
                 </a>
                 <ul class="dropdown-menu">
                     <li th:each="category : ${categories}">
@@ -23,9 +23,9 @@
                     </li>
                 </ul>
             </li>
-            <a class="nav-link" href="/categories/5">Khác</a>
+            <a class="nav-link" th:href="@{|/orders?username=${session.user?.username}|}">ĐƠN HÀNG</a>
             <div th:if="${session.user != null && session.user.admin == true}" class="dropdown">
-                <a class="nav-link" href="/accounts/admin">Quản Lý</a>
+                <a class="nav-link" href="/accounts/admin">QUẢN LÝ</a>
             </div>
         </div>
         <form class="d-flex mx-auto" action="/search" method="get">

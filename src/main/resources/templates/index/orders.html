@@ -53,6 +53,7 @@
 </head>
 
 <body>
+    <div th:replace="~{/layouts/slide}"></div>
     <header th:replace="~{/layouts/nav}"></header>
     <main>
         <h1>Lịch sử đơn hàng</h1>
@@ -62,6 +63,7 @@
                     <th>Mã đơn hàng</th>
                     <th>Ngày tạo</th>
                     <th>Địa chỉ</th>
+                    <th>Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,6 +71,9 @@
                     <td th:text="${order.id}"></td>
                     <td th:text="${order.createDate}"></td>
                     <td th:text="${order.address}"></td>
+                    <td>
+                        <a th:href="@{'/orders/details/' + ${order.id}}" class="btn btn-warning btn-sm">Xem chi tiết</a>
+                    </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(orders)}">
                     <td colspan="3">Chưa có đơn hàng nào!</td>
@@ -77,6 +82,7 @@
         </table>
         <a th:href="@{/home}" class="btn">Quay lại mua sắm</a>
     </main>
+    <footer th:replace="~{/layouts/footer}"></footer>
 </body>
 
 </html>
