@@ -105,11 +105,20 @@
                 type="text"
                 name="description"
                 class="form-control"
-                placeholder="Tên sản phẩm"
+                placeholder="mô tả sản phẩm"
               />
             </div>
             <div class="mb-3">
-              <label class="form-label">Hình ảnh</label>
+              <label class="form-label"></label>
+              <div>
+                <img
+                  th:src="@{|/photos/${product.image}|}"
+                  width="100"
+                  alt="Current Image"
+                  th:unless="${product.image == null}"
+                />
+                <span th:if="${product.image == null}"></span>
+              </div>
               <input
                 type="file"
                 name="imageFile"
@@ -125,8 +134,12 @@
                 name="price"
                 class="form-control"
                 placeholder="Giá"
+                min="0.01"
+                step="0.01"
                 required
+                oninput="validatePrice(this)"
               />
+              <div class="invalid-feedback">Giá sản phẩm phải lớn hơn 0.</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Ngày tạo</label>
