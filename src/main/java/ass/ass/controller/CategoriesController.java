@@ -65,7 +65,7 @@ public class CategoriesController {
 
     // Hiển thị form sửa danh mục
     @GetMapping("/admin/edit/{id}")
-    public String showEditCategoryForm(@PathVariable String id, Model model) {
+    public String showEditCategoryForm(@PathVariable Integer id, Model model) {
         Categories category = categoryDao.findById(id).orElse(null);
         if (category == null) {
             return "redirect:/categories"; // Nếu không tìm thấy, quay lại danh sách
@@ -84,7 +84,7 @@ public class CategoriesController {
 
     // Xử lý xóa danh mục
     @PostMapping("/admin/delete")
-    public String deleteCategory(@RequestParam String id) {
+    public String deleteCategory(@RequestParam Integer id) {
         categoryDao.deleteById(id);
         return "redirect:/categories/admin"; // Sửa ở đây
     }
