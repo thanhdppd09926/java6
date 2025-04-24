@@ -10,9 +10,9 @@ public class ZalopayConfig {
 
     public static final Map<String, String> config = new HashMap<String, String>() {
         {
-            put("app_id", "2554");
-            put("key1", "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn");
-            put("key2", "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf");
+            put("app_id", "2553");
+            put("key1", "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL");
+            put("key2", "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz");
             put("endpoint", "https://sb-openapi.zalopay.vn/v2/create");
             put("orderstatus", "https://sb-openapi.zalopay.vn/v2/query");
 
