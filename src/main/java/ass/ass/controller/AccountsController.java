@@ -40,7 +40,7 @@ public class AccountsController {
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
-    private static final String UPLOAD_DIR = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos\\";
+    private static final String UPLOAD_DIR = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\";
 
     // Hiển thị danh sách tài khoản
     @GetMapping("/admin")
@@ -150,8 +150,6 @@ public class AccountsController {
             HttpSession session) throws IOException {
         Accounts account = accountDao.findById(username).orElse(null);
         if (account != null) {
-            String oldEmail = account.getEmail();
-            boolean emailChanged = !oldEmail.equals(email);
 
             account.setFullname(fullname);
             account.setEmail(email);
@@ -167,10 +165,6 @@ public class AccountsController {
             // Cập nhật session
             session.setAttribute("user", account);
 
-            // Gửi email nếu email thay đổi
-            if (emailChanged) {
-                sendEmailNotification(email, fullname);
-            }
         }
         return "redirect:/accounts/profile";
     }
