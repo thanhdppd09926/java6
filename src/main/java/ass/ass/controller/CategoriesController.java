@@ -40,7 +40,7 @@ public class CategoriesController {
 
     // Hiển thị sản phẩm theo danh mục
     @GetMapping("/{categoryId}")
-    public String getProductsByCategory(@PathVariable String categoryId, Model model) {
+    public String getProductsByCategory(@PathVariable int categoryId, Model model) {
         List<Products> products = productDao.findByCategoryId(categoryId);
         model.addAttribute("products", products);
         List<Categories> categories = categoryRepository.findAll();
@@ -57,8 +57,8 @@ public class CategoriesController {
 
     // Xử lý thêm danh mục
     @PostMapping
-    public String addCategory(@RequestParam String id, @RequestParam String name) {
-        Categories category = Categories.builder().id(id).name(name).build();
+    public String addCategory(@RequestParam String name) {
+        Categories category = Categories.builder().name(name).build();
         categoryDao.save(category);
         return "redirect:/categories/admin"; // Sửa ở đây
     }
@@ -76,7 +76,7 @@ public class CategoriesController {
 
     // Xử lý sửa danh mục
     @PostMapping("/admin/update")
-    public String updateCategory(@RequestParam String id, @RequestParam String name) {
+    public String updateCategory(@RequestParam int id, @RequestParam String name) {
         Categories category = Categories.builder().id(id).name(name).build();
         categoryDao.save(category);
         return "redirect:/categories/admin"; // Sửa ở đây

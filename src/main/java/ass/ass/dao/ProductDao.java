@@ -11,7 +11,7 @@ import ass.ass.models.Products;
 @Repository
 public interface ProductDao extends JpaRepository<Products, Integer> {
 
-    List<Products> findByCategoryId(String categoryId);
+    List<Products> findByCategoryId(int categoryId);
 
     Products findByName(String name);
 
