@@ -34,9 +34,6 @@ public class OrderController {
     @GetMapping("/details/{orderId}")
     public String viewOrderDetails(@PathVariable("orderId") Long orderId, Model model, HttpSession session) {
         Accounts user = (Accounts) session.getAttribute("user");
-        if (user == null || user.isAdmin()) {
-            return "redirect:/login";
-        }
 
         // Lấy thông tin đơn hàng và chi tiết đơn hàng
         Orders order = orderService.getOrderById(orderId);
