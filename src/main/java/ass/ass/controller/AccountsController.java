@@ -40,7 +40,7 @@ public class AccountsController {
     private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     // Đường dẫn lưu ảnh
-    private static final String UPLOAD_DIR = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos\\";
+    private static final String UPLOAD_DIR = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\";
 
     // Hiển thị danh sách tài khoản
     @GetMapping("/admin")
