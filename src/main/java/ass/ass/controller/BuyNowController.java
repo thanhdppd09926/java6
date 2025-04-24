@@ -18,43 +18,43 @@ import java.time.LocalDate;
 @RequestMapping("/order")
 public class BuyNowController {
 
-    @Autowired
-    private OrderRepository orderRepository;
+        @Autowired
+        private OrderRepository orderRepository;
 
-    @Autowired
-    private OrderDetailsRepository orderDetailsRepository;
+        @Autowired
+        private OrderDetailsRepository orderDetailsRepository;
 
-    @Autowired
-    private ProductRepository productsRepository;
+        @Autowired
+        private ProductRepository productsRepository;
 
-    @PostMapping("/buy-now")
-    @ResponseBody
-    public String buyNow(@RequestParam String username,
-            @RequestParam Integer productId,
-            @RequestParam Integer quantity) {
-        // Tạo đơn hàng mới
-        Orders order = new Orders();
-        order.setCreateDate(Date.valueOf(LocalDate.now()));
-        order.setAddress(""); // Để trống, yêu cầu người dùng nhập sau
-        Accounts account = new Accounts();
-        account.setUsername(username);
-        order.setAccount(account);
+        @PostMapping("/buy-now")
+        @ResponseBody
+        public String buyNow(@RequestParam String username,
+                        @RequestParam Integer productId,
+                        @RequestParam Integer quantity) {
+                // Tạo đơn hàng mới
+                Orders order = new Orders();
+                order.setCreateDate(Date.valueOf(LocalDate.now()));
+                order.setAddress(""); // Để trống, yêu cầu người dùng nhập sau
+                Accounts account = new Accounts();
+                account.setUsername(username);
+                order.setAccount(account);
 
-        // Lưu đơn hàng
-        order = orderRepository.save(order);
+                // Lưu đơn hàng
+                order = orderRepository.save(order);
 
-        // Tạo chi tiết đơn hàng
-        Products product = productsRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Sản phẩm không tồn tại"));
-        OrderDetails orderDetail = new OrderDetails();
-        orderDetail.setOrder(order);
-        orderDetail.setProduct(product);
-        
-        orderDetail.setQuantity(quantity);
-orderDetail.setPrice(product.getPrice());
-        // Lưu chi tiết đơn hàng
-        orderDetailsRepository.save(orderDetail);
+                // Tạo chi tiết đơn hàng
+                Products product = productsRepository.findById(productId)
+                                .orElseThrow(() -> new IllegalArgumentException("Sản phẩm không tồn tại"));
+                OrderDetails orderDetail = new OrderDetails();
+                orderDetail.setOrder(order);
+                orderDetail.setProduct(product);
 
-        return String.valueOf(order.getId()); // Trả về ID đơn hàng
-    }
+                orderDetail.setQuantity(quantity);
+                orderDetail.setPrice(product.getPrice());
+                // Lưu chi tiết đơn hàng
+                orderDetailsRepository.save(orderDetail);
+
+                return String.valueOf(order.getId()); // Trả về ID đơn hàng
+        }
 }
