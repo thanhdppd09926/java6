@@ -1,5 +1,6 @@
 package ass.ass.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,5 +22,6 @@ public class Categories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; // Khóa chính, kiểu CHAR(4)
 
+    @Column(unique = true)
     private String name; // NVARCHAR(50)
 }
