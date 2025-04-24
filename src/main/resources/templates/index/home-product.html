@@ -305,7 +305,12 @@
       const productName = button.getAttribute("data-name");
       const priceStr = button.getAttribute("data-price");
       const price = parseFloat(priceStr.replace(/[^\d]/g, "")) || 0;
-
+      const username = document.getElementById("buyNowUsername")?.value;
+      if (!username || username.trim() === "") {
+        alert("Bạn cần đăng nhập để mua hàng!");
+        window.location.href = "/login";
+        return;
+      }
       console.log("Price from data-price:", priceStr, "Parsed price:", price);
 
       document.getElementById("buyNowProductId").value = productId;
