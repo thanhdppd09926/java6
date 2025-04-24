@@ -49,7 +49,7 @@ public class ProductsController {
 
     @PostMapping("/new")
     public String addProduct(@ModelAttribute Products product,
-                             @RequestParam("imageFile") MultipartFile imageFile) {
+            @RequestParam("imageFile") MultipartFile imageFile) {
         if (!imageFile.isEmpty()) {
             try {
                 String cleanName = removeAccentsAndSpaces(product.getName());
@@ -57,7 +57,7 @@ public class ProductsController {
                 String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 String newFileName = System.currentTimeMillis() + "_" + cleanName + extension;
 
-                String imagePath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos\\" + newFileName;
+                String imagePath = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\" + newFileName;
                 imageFile.transferTo(new File(imagePath));
                 product.setImage(newFileName);
             } catch (IOException e) {
@@ -82,16 +82,17 @@ public class ProductsController {
 
     @PostMapping("/{id}")
     public String updateProduct(@PathVariable int id,
-                                @ModelAttribute Products product,
-                                @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) {
+            @ModelAttribute Products product,
+            @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) {
         Products existingProduct = productDao.findById(id).orElse(null);
         if (existingProduct != null) {
             if (imageFile != null && !imageFile.isEmpty()) {
                 try {
                     String cleanName = removeAccentsAndSpaces(product.getName());
-                    String extension = imageFile.getOriginalFilename().substring(imageFile.getOriginalFilename().lastIndexOf("."));
+                    String extension = imageFile.getOriginalFilename()
+                            .substring(imageFile.getOriginalFilename().lastIndexOf("."));
                     String newFileName = System.currentTimeMillis() + "_" + cleanName + extension;
-                    String imagePath = "D:\\Java6_github\\java6\\src\\main\\resources\\static\\photos\\" + newFileName;
+                    String imagePath = "C:\\java6\\java6\\src\\main\\resources\\static\\photos\\" + newFileName;
                     imageFile.transferTo(new File(imagePath));
                     product.setImage(newFileName);
                 } catch (IOException e) {
@@ -113,7 +114,8 @@ public class ProductsController {
     }
 
     private String removeAccentsAndSpaces(String str) {
-        if (str == null) return "";
+        if (str == null)
+            return "";
         String normalized = Normalizer.normalize(str, Normalizer.Form.NFD);
         String withoutAccents = normalized.replaceAll("\\p{M}", "");
         return withoutAccents.replaceAll("\\s+", "_").toLowerCase();
