@@ -64,6 +64,7 @@ public class ProductsController {
                 System.out.println("LỖI: " + e.getMessage());
             }
         }
+        
         productDao.save(product);
         return "redirect:/products/admin";
     }
